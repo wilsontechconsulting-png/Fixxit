@@ -1,9 +1,9 @@
-baseURL = "http://jazzy-caramel-b61d5f.netlify.app/"
+baseURL = "https://fantastic-yeot-a44fa9.netlify.app/"
 languageCode = "en-us"
 title = "Fixxit Pros | Home Services"
 theme = "fixxitpros"
 enableRobotsTXT = true
-publishDir = "docs"
+publishDir = "public"
 
 [sitemap]
   changefreq = "monthly"
