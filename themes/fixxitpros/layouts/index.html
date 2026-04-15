@@ -1,0 +1,30 @@
+{{ define "main" }}
+
+  {{ partial "hero.html" . }}
+
+  {{ partial "services.html" . }}
+
+  {{ partial "how-it-works.html" . }}
+
+  {{ partial "trust.html" . }}
+
+  {{ partial "contact-form.html" . }}
+
+  {{ partial "testimonials.html" . }}
+
+  <!-- Disclaimer -->
+  <section class="disclaimer" aria-label="Legal disclaimer">
+    <div class="container">
+      <p class="disclaimer-text">
+        <strong>Disclaimer</strong>
+        Fixxit Pros is a marketing and scheduling platform that connects homeowners with independent
+        contractors. We do not employ the contractors directly. All services are performed by
+        independent third-party providers. Fixxit Pros is not responsible for the quality, safety,
+        or legal compliance of work performed by contractors. Always verify contractor licensing and
+        insurance before proceeding with any work. Results may vary. Call us at
+        <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a> with any questions.
+      </p>
+    </div>
+  </section>
+
+{{ end }}

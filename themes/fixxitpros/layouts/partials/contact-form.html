@@ -1,0 +1,153 @@
+<section class="contact-section" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <div class="contact-inner">
+
+      <!-- Image Column -->
+      <div class="contact-image-col">
+        <img
+          src="/images/Contact_fixxit.png"
+          alt="Fixxit Pros customer service team ready to help"
+          width="600"
+          height="700"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-col reveal">
+        <h2 id="contact-heading">Get Your Free Quote</h2>
+        <p class="form-subtitle">
+          Tell us about your project and we'll connect you with the right
+          professionals in your area — fast, easy, and no obligation.
+        </p>
+
+        <form
+          name="quote-request"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          novalidate
+          id="quote-form"
+        >
+          <input type="hidden" name="form-name" value="quote-request" />
+
+          <!-- Honeypot -->
+          <div class="honey-field">
+            <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <!-- First + Last Name -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name <span aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="first-name"
+                name="first_name"
+                placeholder="Jane"
+                required
+                autocomplete="given-name"
+              />
+              <span class="field-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name <span aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="last-name"
+                name="last_name"
+                placeholder="Smith"
+                required
+                autocomplete="family-name"
+              />
+              <span class="field-error" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Phone + Email -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone <span aria-hidden="true">*</span></label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="(555) 000-0000"
+                required
+                autocomplete="tel"
+              />
+              <span class="field-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span aria-hidden="true">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="jane@example.com"
+                required
+                autocomplete="email"
+              />
+              <span class="field-error" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Zip Code -->
+          <div class="form-group">
+            <label for="zip">Zip Code <span aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="zip"
+              name="zip_code"
+              placeholder="90210"
+              required
+              maxlength="10"
+              autocomplete="postal-code"
+            />
+            <span class="field-error" role="alert"></span>
+          </div>
+
+          <!-- Service Type -->
+          <div class="form-group">
+            <label for="service-type">Service Needed <span aria-hidden="true">*</span></label>
+            <select id="service-type" name="service_type" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="HVAC">HVAC</option>
+              <option value="Electrical">Electrical</option>
+              <option value="Roofing">Roofing</option>
+              <option value="Windows & Doors">Windows &amp; Doors</option>
+              <option value="Bath & Shower">Bath &amp; Shower</option>
+              <option value="Mowing">Mowing</option>
+              <option value="Air Duct & Carpet Cleaning">Air Duct &amp; Carpet Cleaning</option>
+              <option value="Landscaping">Landscaping</option>
+              <option value="Siding">Siding</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="field-error" role="alert"></span>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Tell Us More</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Briefly describe your home service need, any urgency, and anything else that would help us match you with the right pro..."
+              rows="4"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg form-submit-btn">
+            Get My Free Quote &rarr;
+          </button>
+
+          <p style="font-size:0.8rem; color:var(--gray-600); margin-top:1rem; text-align:center;">
+            No commitment required. We'll reach out within one business day.
+          </p>
+        </form>
+      </div><!-- /form-col -->
+
+    </div><!-- /contact-inner -->
+  </div>
+</section>

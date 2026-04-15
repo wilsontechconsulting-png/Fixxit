@@ -1,0 +1,39 @@
+<header class="site-header" role="banner">
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a href="/" class="logo-link" aria-label="Fixxit Pros Home">
+      <img src="/images/Fixxit_logo_yellow.png" alt="Fixxit Pros Logo" width="120" height="44" />
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+      <a href="/questions/" class="nav-cta">Get a Free Quote</a>
+    </nav>
+
+    <!-- Hamburger Button -->
+    <button
+      class="hamburger"
+      id="hamburger"
+      aria-label="Toggle mobile menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  {{ range .Site.Menus.main }}
+  <a href="{{ .URL }}">{{ .Name }}</a>
+  {{ end }}
+  <a href="/questions/" class="mobile-cta">Get a Free Quote</a>
+</nav>

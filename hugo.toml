@@ -1,0 +1,32 @@
+baseURL = "https://fixxitpros.com"
+languageCode = "en-us"
+title = "Fixxit Pros | Home Services"
+theme = "fixxitpros"
+enableRobotsTXT = true
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+
+[params]
+  phone = "888-229-5696"
+  email = "info@fixxitpros.com"
+  description = "Fixxit Pros connects homeowners with vetted, local home service professionals. Plumbing, HVAC, Roofing, Electrical, and more."
+
+[menus]
+  [[menus.main]]
+    name = "Services"
+    url = "/#services"
+    weight = 1
+  [[menus.main]]
+    name = "How It Works"
+    url = "/#how-it-works"
+    weight = 2
+  [[menus.main]]
+    name = "Contact"
+    url = "/questions/"
+    weight = 3
+  [[menus.main]]
+    name = "Looking for Work"
+    url = "/looking-for-work/"
+    weight = 4

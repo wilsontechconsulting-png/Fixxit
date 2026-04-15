@@ -1,0 +1,252 @@
+{{ define "main" }}
+
+<div class="questions-hero">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    <p>
+      Join the Fixxit Pros network as a subcontractor or apply for an
+      employment position. We're always looking for talented professionals.
+    </p>
+  </div>
+</div>
+
+<div class="work-forms">
+  <div class="container" style="max-width: 860px;">
+
+    <!-- =============================
+         Subcontractor Form
+         ============================= -->
+    <div class="work-form-section reveal">
+      <h2>Join as a Subcontractor</h2>
+      <p class="form-desc">
+        Are you a licensed, insured home service professional looking for more
+        work? Submit your information and we'll reach out about joining our
+        contractor network.
+      </p>
+
+      <form
+        name="subcontractor-inquiry"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field-sub"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="subcontractor-inquiry" />
+
+        <!-- Honeypot -->
+        <div class="honey-field">
+          <label>Don't fill this out: <input name="bot-field-sub" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <!-- Name + Email -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sub-name">Full Name <span aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="sub-name"
+              name="name"
+              placeholder="John Contractor"
+              required
+              autocomplete="name"
+            />
+            <span class="field-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="sub-email">Email <span aria-hidden="true">*</span></label>
+            <input
+              type="email"
+              id="sub-email"
+              name="email"
+              placeholder="john@mycompany.com"
+              required
+              autocomplete="email"
+            />
+            <span class="field-error" role="alert"></span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="sub-phone">Phone <span aria-hidden="true">*</span></label>
+          <input
+            type="tel"
+            id="sub-phone"
+            name="phone"
+            placeholder="(555) 000-0000"
+            required
+            autocomplete="tel"
+          />
+          <span class="field-error" role="alert"></span>
+        </div>
+
+        <!-- Services Offered -->
+        <div class="form-group">
+          <label>Services You Offer <span aria-hidden="true">*</span></label>
+          <div class="services-checkbox-grid" role="group" aria-label="Select services you offer">
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Plumbing" /> Plumbing
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="HVAC" /> HVAC
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Electrical" /> Electrical
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Roofing" /> Roofing
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Windows & Doors" /> Windows &amp; Doors
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Bath & Shower" /> Bath &amp; Shower
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Mowing" /> Mowing
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Air Duct & Carpet" /> Air Duct &amp; Carpet
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Landscaping" /> Landscaping
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="services" value="Siding" /> Siding
+            </label>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label for="sub-message">Tell Us About Your Experience</label>
+          <textarea
+            id="sub-message"
+            name="message"
+            placeholder="Years of experience, licenses held, service area, number of employees, etc."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="margin-top:1rem;">
+          Submit Subcontractor Inquiry &rarr;
+        </button>
+      </form>
+    </div>
+
+    <!-- =============================
+         Employee Application Form
+         ============================= -->
+    <div class="work-form-section reveal reveal-delay-1">
+      <h2>Apply for Employment</h2>
+      <p class="form-desc">
+        Interested in joining the Fixxit Pros team directly? We're growing fast
+        and always looking for motivated people who share our values.
+      </p>
+
+      <form
+        name="employee-application"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field-emp"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="form-name" value="employee-application" />
+
+        <!-- Honeypot -->
+        <div class="honey-field">
+          <label>Don't fill this out: <input name="bot-field-emp" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <!-- Name + Email -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emp-name">Full Name <span aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="emp-name"
+              name="name"
+              placeholder="Jane Smith"
+              required
+              autocomplete="name"
+            />
+            <span class="field-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="emp-email">Email <span aria-hidden="true">*</span></label>
+            <input
+              type="email"
+              id="emp-email"
+              name="email"
+              placeholder="jane@example.com"
+              required
+              autocomplete="email"
+            />
+            <span class="field-error" role="alert"></span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="emp-phone">Phone <span aria-hidden="true">*</span></label>
+          <input
+            type="tel"
+            id="emp-phone"
+            name="phone"
+            placeholder="(555) 000-0000"
+            required
+            autocomplete="tel"
+          />
+          <span class="field-error" role="alert"></span>
+        </div>
+
+        <!-- Position -->
+        <div class="form-group">
+          <label for="emp-position">Position Interested In <span aria-hidden="true">*</span></label>
+          <select id="emp-position" name="position" required>
+            <option value="" disabled selected>Select a position...</option>
+            <option value="Customer Success Representative">Customer Success Representative</option>
+            <option value="Operations Coordinator">Operations Coordinator</option>
+            <option value="Sales Representative">Sales Representative</option>
+            <option value="Marketing Specialist">Marketing Specialist</option>
+            <option value="Field Technician">Field Technician</option>
+            <option value="Account Manager">Account Manager</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="field-error" role="alert"></span>
+        </div>
+
+        <!-- Resume Upload -->
+        <div class="form-group">
+          <label for="emp-resume">Resume (PDF or Word)</label>
+          <input
+            type="file"
+            id="emp-resume"
+            name="resume"
+            accept=".pdf,.doc,.docx"
+            style="border: 2px dashed var(--gray-200); background: var(--gray-50); cursor: pointer;"
+          />
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label for="emp-message">Cover Note</label>
+          <textarea
+            id="emp-message"
+            name="message"
+            placeholder="Tell us why you're interested in joining Fixxit Pros and what makes you a great fit..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-blue btn-lg" style="margin-top:1rem;">
+          Submit Application &rarr;
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+{{ end }}
