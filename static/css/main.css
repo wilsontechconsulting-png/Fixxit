@@ -840,6 +840,14 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.9;
 }
 
+.trust-icon-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin: 0 auto 1.25rem;
+  text-align: center;
+  filter: drop-shadow(0 2px 8px rgba(245, 197, 24, 0.3));
+}
+
 .trust-card h3 {
   font-family: var(--font-heading);
   font-size: 1.1rem;

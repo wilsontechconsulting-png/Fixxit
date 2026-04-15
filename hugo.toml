@@ -1,4 +1,4 @@
-baseURL = "https://wilsontechconsulting-png.github.io/Fixxit/"
+baseURL = "http://jazzy-caramel-b61d5f.netlify.app/"
 languageCode = "en-us"
 title = "Fixxit Pros | Home Services"
 theme = "fixxitpros"
