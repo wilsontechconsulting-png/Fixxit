@@ -1,6 +1,6 @@
+redirectsOrigin = "config"
 plugins = []
 headers = []
-redirects = []
 
 [functions]
 
@@ -8,11 +8,14 @@ redirects = []
 
 [build]
 publish = "/Users/productivebot/productivebot/projects/fixxitpros-hugo/public"
-publishOrigin = "ui"
-commandOrigin = "ui"
-command = "hugo"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "hugo --minify"
 
 [build.environment]
+HUGO_VERSION = "0.159.1"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"
 
 [build.processing]
 
@@ -25,3 +28,15 @@ command = "hugo"
 [build.processing.js]
 
 [build.services]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
