@@ -12,15 +12,16 @@ Ask helpful questions to understand their problem. Be conversational, friendly, 
 
 Important: These are local people who can help - they may be working for us or subcontracting. Don't make promises about pricing or exact timing.`
 
-function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
+async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
   if (!supabaseAdmin) return
-  supabaseAdmin
-    .from('chat_conversations')
-    .insert({ session_id: sessionId, role, content, metadata })
-    .then(({ error }) => {
-      if (error) console.error('Supabase log error:', error)
-    })
-    .catch((err: unknown) => console.error('Supabase log error:', err))
+  try {
+    const { error } = await supabaseAdmin
+      .from('chat_conversations')
+      .insert({ session_id: sessionId, role, content, metadata })
+    if (error) console.error('Supabase log error:', error)
+  } catch (err) {
+    console.error('Supabase log error:', err)
+  }
 }
 
 export async function POST(req: NextRequest) {
