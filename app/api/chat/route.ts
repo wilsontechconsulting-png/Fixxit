@@ -20,7 +20,7 @@ function logMessage(sessionId: string, role: string, content: string, metadata: 
     .then(({ error }) => {
       if (error) console.error('Supabase log error:', error)
     })
-    .catch((err) => console.error('Supabase log error:', err))
+    .catch((err: unknown) => console.error('Supabase log error:', err))
 }
 
 export async function POST(req: NextRequest) {
