@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import Groq from 'groq-sdk'
+import { supabaseAdmin } from '@/lib/supabase'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
@@ -11,9 +12,33 @@ Ask helpful questions to understand their problem. Be conversational, friendly, 
 
 Important: These are local people who can help - they may be working for us or subcontracting. Don't make promises about pricing or exact timing.`
 
+async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
+  try {
+    await supabaseAdmin.from('chat_conversations').insert({
+      session_id: sessionId,
+      role,
+      content,
+      metadata,
+    })
+  } catch (err) {
+    console.error('Supabase log error:', err)
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json()
+    const { messages, session_id } = await req.json()
+
+    const metadata = {
+      user_agent: req.headers.get('user-agent') ?? '',
+      referer: req.headers.get('referer') ?? '',
+    }
+
+    // Log the last user message
+    const lastMessage = messages[messages.length - 1]
+    if (lastMessage?.role === 'user') {
+      await logMessage(session_id ?? 'unknown', 'user', lastMessage.content, metadata)
+    }
 
     const stream = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
@@ -29,14 +54,21 @@ export async function POST(req: NextRequest) {
     const encoder = new TextEncoder()
     const readable = new ReadableStream({
       async start(controller) {
+        let assistantContent = ''
         try {
           for await (const chunk of stream) {
             const data = JSON.stringify(chunk)
             controller.enqueue(encoder.encode(`data: ${data}\n\n`))
+            const delta = chunk.choices?.[0]?.delta?.content
+            if (delta) assistantContent += delta
           }
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
         } finally {
           controller.close()
+          // Log the full assistant response after streaming completes
+          if (assistantContent) {
+            logMessage(session_id ?? 'unknown', 'assistant', assistantContent, metadata)
+          }
         }
       },
     })
