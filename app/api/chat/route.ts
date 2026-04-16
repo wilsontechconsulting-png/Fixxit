@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const { messages } = await req.json()
 
     const stream = await groq.chat.completions.create({
-      model: 'llama-3.1-70b-versatile',
+      model: 'llama-3.3-70b-versatile',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...messages,
