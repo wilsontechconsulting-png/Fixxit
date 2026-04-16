@@ -12,17 +12,15 @@ Ask helpful questions to understand their problem. Be conversational, friendly, 
 
 Important: These are local people who can help - they may be working for us or subcontracting. Don't make promises about pricing or exact timing.`
 
-async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
-  try {
-    await supabaseAdmin.from('chat_conversations').insert({
-      session_id: sessionId,
-      role,
-      content,
-      metadata,
+function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
+  if (!supabaseAdmin) return
+  supabaseAdmin
+    .from('chat_conversations')
+    .insert({ session_id: sessionId, role, content, metadata })
+    .then(({ error }) => {
+      if (error) console.error('Supabase log error:', error)
     })
-  } catch (err) {
-    console.error('Supabase log error:', err)
-  }
+    .catch((err) => console.error('Supabase log error:', err))
 }
 
 export async function POST(req: NextRequest) {
@@ -34,10 +32,10 @@ export async function POST(req: NextRequest) {
       referer: req.headers.get('referer') ?? '',
     }
 
-    // Log the last user message
+    // Log the last user message (fire-and-forget — never blocks the chat response)
     const lastMessage = messages[messages.length - 1]
     if (lastMessage?.role === 'user') {
-      await logMessage(session_id ?? 'unknown', 'user', lastMessage.content, metadata)
+      logMessage(session_id ?? 'unknown', 'user', lastMessage.content, metadata)
     }
 
     const stream = await groq.chat.completions.create({
