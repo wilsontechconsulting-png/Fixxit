@@ -25,6 +25,7 @@
           name="quote-request"
           method="POST"
           data-netlify="true"
+          data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
           novalidate
           id="quote-form"
@@ -137,6 +138,9 @@
               rows="4"
             ></textarea>
           </div>
+
+          <!-- reCAPTCHA -->
+          <div data-netlify-recaptcha="true" style="margin: 1.5rem 0;"></div>
 
           <button type="submit" class="btn btn-primary btn-lg form-submit-btn">
             Get My Free Quote &rarr;

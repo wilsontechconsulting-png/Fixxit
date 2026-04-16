@@ -28,6 +28,7 @@
         name="subcontractor-inquiry"
         method="POST"
         data-netlify="true"
+        data-netlify-recaptcha="true"
         netlify-honeypot="bot-field-sub"
         novalidate
       >
@@ -128,6 +129,9 @@
           ></textarea>
         </div>
 
+        <!-- reCAPTCHA -->
+        <div data-netlify-recaptcha="true" style="margin: 1.5rem 0;"></div>
+
         <button type="submit" class="btn btn-primary btn-lg" style="margin-top:1rem;">
           Submit Subcontractor Inquiry &rarr;
         </button>
@@ -148,6 +152,7 @@
         name="employee-application"
         method="POST"
         data-netlify="true"
+        data-netlify-recaptcha="true"
         netlify-honeypot="bot-field-emp"
         novalidate
         enctype="multipart/form-data"
@@ -239,6 +244,9 @@
             rows="4"
           ></textarea>
         </div>
+
+        <!-- reCAPTCHA -->
+        <div data-netlify-recaptcha="true" style="margin: 1.5rem 0;"></div>
 
         <button type="submit" class="btn btn-blue btn-lg" style="margin-top:1rem;">
           Submit Application &rarr;
