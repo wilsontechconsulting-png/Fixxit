@@ -1,4 +1,13 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "alias": [
+    "fixxitpros.com",
+    "www.fixxitpros.com"
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -33,12 +42,6 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
     }
   ]
 }
