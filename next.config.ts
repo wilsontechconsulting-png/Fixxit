@@ -1,17 +1,31 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  images: {
-    formats: ['image/webp', 'image/avif'],
+  // Generate unique build IDs to force cache refresh
+  generateBuildId: async () => {
+    return `build-${Date.now()}`
   },
+  
+  // Disable static page generation caching during development
+  // This ensures every deploy is fresh
+  experimental: {
+    isrMemoryCacheSize: 0,
+  },
+  
+  // Add headers to prevent caching issues
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/:path*',
         headers: [
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'X-Frame-Options', value: 'DENY' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
         ],
       },
     ]
