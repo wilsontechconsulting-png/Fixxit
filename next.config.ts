@@ -8,9 +8,9 @@ const nextConfig: NextConfig = {
   
   // Disable static page generation caching during development
   // This ensures every deploy is fresh
-  experimental: {
-    isrMemoryCacheSize: 0,
-  },
+  // experimental: {
+  //   isrMemoryCacheSize: 0,
+  // },
   
   // Add headers to prevent caching issues
   async headers() {
