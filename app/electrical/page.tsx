@@ -4,68 +4,70 @@ import ScrollAnimations from '@/components/ScrollAnimations'
 import ServiceFAQ from '@/components/ServiceFAQ'
 
 export const metadata: Metadata = {
-  title: 'HVAC Services — AC Repair, Furnace & Heat Pump | Fixxit Pros',
-  description: 'Licensed HVAC technicians for AC repair, furnace service, heat pumps, and emergency HVAC. 2-hour response, upfront pricing, 1-year warranty. Call 888-229-5696.',
+  title: 'Electrical Services — Panel Upgrades, Wiring & Outlet Repair | Fixxit Pros',
+  description: 'Licensed electricians for panel upgrades, outlet repair, flickering lights, and code-compliant installations. Upfront pricing, 1-year warranty. Call 888-229-5696.',
 }
 
 const services = [
-  'AC Repair (All Brands)',
-  'Central AC Installation',
-  'Mini-Split AC Installation',
-  'Furnace Repair & Service',
-  'Heat Pump Installation & Repair',
-  'Ductwork Inspection & Sealing',
-  'Air Handler Service',
-  'Thermostat Installation & Smart Upgrades',
-  'Indoor Air Quality Systems',
-  'Whole-Home Humidifiers & Dehumidifiers',
-  'Seasonal Maintenance Tune-Ups',
-  'Evaporator & Condenser Coil Cleaning',
-  'Refrigerant Recharge & Leak Repair',
-  'Emergency HVAC Service',
+  'Electrical Panel Upgrades',
+  'Circuit Breaker Repair & Replacement',
+  'Outlet & Switch Installation',
+  'GFCI Outlet Installation',
+  'Whole-Home Rewiring',
+  'Electrical Safety Inspections',
+  'Ceiling Fan Installation',
+  'Light Fixture Installation & Repair',
+  'Recessed Lighting Installation',
+  'Dimmer Switch Installation',
+  'Smoke & Carbon Monoxide Detectors',
+  'EV Charger Installation',
+  'Outdoor Lighting & Landscape Lighting',
+  'Generator Installation & Service',
+  'Surge Protection Installation',
+  'Home Office Electrical Work',
 ]
 
 const painPoints = [
-  "Your AC runs constantly but the house won't cool below 80°",
-  'Your heating bill spiked this month but the house still feels cold',
-  "There's a burning or musty smell every time the system kicks on",
-  "You're hearing grinding, banging, or high-pitched squealing from your unit",
-  'Some rooms are freezing while others are sweltering',
-  'Your AC keeps tripping the breaker or shutting off on its own',
-  "Your system is over 10 years old and you're nervous about this summer",
+  'Your circuit breaker trips regularly — especially when using multiple appliances',
+  'Lights flicker or dim when you turn on the dryer, microwave, or HVAC',
+  'You have outlets that don\'t work, spark when you plug something in, or feel warm to the touch',
+  "Your home still has aluminum wiring or a fuse box — and you know that's a liability",
+  "You're adding a home office, workshop, or EV charger and need a dedicated circuit",
+  "You bought an older home and you're not sure the wiring is safe",
+  "Your electric bill spiked and you can't figure out why",
 ]
 
 const trustCards = [
-  { icon: '🛡️', title: '1-Year Warranty', desc: 'All HVAC work is backed by a full 12-month warranty on parts and labor. If it fails, we fix it free.' },
-  { icon: '💵', title: 'Upfront Pricing', desc: 'Your tech diagnoses the problem and quotes the price before touching anything. Zero surprises on your bill.' },
-  { icon: '⚡', title: '2-Hour Response', desc: 'We match you with a local HVAC tech fast. Most calls are scheduled same-day — emergency calls within 2 hours.' },
-  { icon: '✅', title: 'Licensed & Insured', desc: "Every technician is fully licensed, insured, and background-checked. We never send someone to your home we wouldn't send to ours." },
+  { icon: '🛡️', title: '1-Year Warranty', desc: 'All electrical work is backed by a full 12-month warranty. Code-compliant work that passes inspection — or we fix it free.' },
+  { icon: '💵', title: 'Upfront Pricing', desc: 'You get the price before any work starts. No hourly rate mysteries. No surprise charges when your panel is already open.' },
+  { icon: '⚡', title: 'Fast Scheduling', desc: 'Most electrical jobs are scheduled within 24–48 hours. Electrical emergencies (no power, burning smell) are prioritized for same-day.' },
+  { icon: '✅', title: 'Licensed & Code-Compliant', desc: 'Every electrician is fully licensed, insured, and pulls permits when required. All work meets current electrical code.' },
 ]
 
 const faqs = [
   {
-    question: 'How fast can you get a tech to my home?',
-    answer: "We target a 2-hour response for emergencies and same-day scheduling for most service calls. During peak summer and winter seasons, we have extra coverage to make sure you're not waiting.",
+    question: 'Is it safe to use my home if a breaker keeps tripping?',
+    answer: "A constantly tripping breaker means that circuit is being overloaded — or there's a fault somewhere. Keep resetting it, and you risk damaging appliances or starting a fire. Don't ignore it; call us to diagnose the cause.",
   },
   {
-    question: 'Do you work on all HVAC brands?',
-    answer: 'Yes — our techs are trained on all major brands including Carrier, Trane, Lennox, Rheem, Goodman, York, American Standard, and more. If you have it, we can fix it.',
+    question: 'Do I need a permit for electrical work?',
+    answer: "It depends on the scope. Simple outlet replacements typically don't require permits. Panel upgrades, new circuits, and rewiring usually do. Our licensed electricians handle permit requirements for you — we know what needs permits in your area.",
   },
   {
-    question: 'Will I know the price before work starts?',
-    answer: "Always. Your technician diagnoses the problem, explains exactly what's needed, and gives you the price upfront. You approve it before any work begins. No pressure, no surprise charges.",
+    question: 'How do I know if my home has outdated or unsafe wiring?',
+    answer: "Signs include: aluminum wiring (common in homes built 1965-1973), fuse boxes instead of circuit breakers, two-prong ungrounded outlets, cloth-wrapped wiring, or frequent breaker trips. A safety inspection will identify any hazards and give you a complete picture.",
   },
   {
-    question: 'Is my system worth repairing or should I replace it?',
-    answer: "We give you an honest assessment based on the age and condition of your system. A general rule: if repair costs exceed 50% of replacement cost on a system older than 10 years, replacement often makes more financial sense. We'll walk you through both options and let you decide.",
+    question: 'Can you install an EV charger in my garage?',
+    answer: 'Yes — EV charger installation is one of our most requested services right now. A Level 2 charger (240V) requires a dedicated 40–50 amp circuit. We assess your panel capacity, run the circuit, install the charger, and ensure everything is code-compliant.',
   },
   {
-    question: 'What does the 1-year warranty actually cover?',
-    answer: 'It covers all parts and labor performed by our technicians. If the same issue comes back within 12 months, we return and fix it at no charge. It does not cover pre-existing conditions or unrelated failures.',
+    question: 'What does a panel upgrade cost and do I actually need one?',
+    answer: "Panel upgrades typically run $1,500–$4,000 depending on your service size and local permit costs. You likely need one if: your panel is under 100 amps, you're adding high-draw appliances (EV charger, hot tub, central AC), or your current panel is a known fire hazard brand. We'll assess yours honestly.",
   },
 ]
 
-export default function HvacPage() {
+export default function ElectricalPage() {
   return (
     <>
       <ScrollAnimations />
@@ -75,20 +77,20 @@ export default function HvacPage() {
         <div className="container">
           <div style={{ maxWidth: '720px' }}>
             <p style={{ color: 'var(--yellow)', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
-              HVAC Services · Fixxit Pros
+              Electrical Services · Fixxit Pros
             </p>
             <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', marginBottom: '1.25rem', lineHeight: 1.05 }}>
-              AC Not Cooling?<br />Heat Not Working?<br />We Fix It Today.
+              Flickering Lights?<br />Tripping Breakers?<br />Licensed Electricians Ready.
             </h1>
             <p style={{ fontSize: '1.15rem', color: 'rgba(255,255,255,0.82)', marginBottom: '2rem', lineHeight: 1.7, maxWidth: '580px' }}>
-              When your HVAC fails, every hour matters. We connect you with licensed technicians who show up fast, diagnose honestly, and fix it right the first time — or we make it right.
+              Electrical issues aren&apos;t just annoying — they can be dangerous. Our licensed electricians diagnose the root cause, explain it clearly, and fix it to code — with an upfront price and a 1-year warranty.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
               <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-              {['1-Year Warranty', '2-Hour Response', 'Upfront Pricing', 'Licensed & Insured'].map(badge => (
+              {['1-Year Warranty', 'Code-Compliant Work', 'Upfront Pricing', 'Licensed & Insured'].map(badge => (
                 <div key={badge} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.9)', fontSize: '0.875rem', fontWeight: 600 }}>
                   <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 20, height: 20, background: 'var(--yellow)', color: 'var(--navy)', borderRadius: '50%', fontSize: '0.7rem', fontWeight: 900, flexShrink: 0 }}>✓</span>
                   {badge}
@@ -104,8 +106,8 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading">We Handle ANY HVAC Issue</h2>
-            <p className="section-subheading">From a quick tune-up to a full system replacement — our licensed techs cover it all.</p>
+            <h2 className="section-heading">We Handle ANY Electrical Issue</h2>
+            <p className="section-subheading">From a dead outlet to a full panel upgrade — licensed electricians who do it right and to code.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.875rem', marginBottom: '2.5rem' }} className="reveal">
             {services.map(svc => (
@@ -116,8 +118,8 @@ export default function HvacPage() {
             ))}
           </div>
           <div style={{ textAlign: 'center' }}>
-            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Don&apos;t see your specific issue? We handle it. Just ask.</p>
-            <Link href="/questions" className="btn btn-primary btn-lg">Get a Free Quote →</Link>
+            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Electrical emergency? Burning smell or no power? Call now.</p>
+            <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
           </div>
         </div>
       </section>
@@ -126,11 +128,11 @@ export default function HvacPage() {
       <section style={{ padding: '5rem 0', background: 'var(--white)' }}>
         <div className="container">
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '0.5rem' }}>
+            <div className="reveal">
               <div style={{ display: 'inline-block', width: 60, height: 4, background: 'var(--yellow)', borderRadius: 99, marginBottom: '1rem' }} />
-              <h2 className="section-heading">Sound Familiar?</h2>
+              <h2 className="section-heading">Electrical Warning Signs to Not Ignore</h2>
               <p style={{ color: 'var(--gray-600)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
-                These are the HVAC problems homeowners come to us with most. If any of these sound like your situation, don&apos;t wait — they get worse fast.
+                Electrical problems rarely fix themselves. Most get worse — and a few create real fire and safety risks.
               </p>
             </div>
             <ul style={{ listStyle: 'none', padding: 0 }} className="reveal">
@@ -154,8 +156,8 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading" style={{ color: 'var(--white)' }}>Why Homeowners Trust Fixxit for HVAC</h2>
-            <p className="section-subheading" style={{ color: 'rgba(255,255,255,0.7)' }}>We&apos;re not the cheapest option — we&apos;re the one you call when it actually needs to get fixed.</p>
+            <h2 className="section-heading" style={{ color: 'var(--white)' }}>Why Homeowners Trust Fixxit for Electrical Work</h2>
+            <p className="section-subheading" style={{ color: 'rgba(255,255,255,0.7)' }}>Never DIY your electrical. Never hire an unlicensed handyman. Here&apos;s why that matters.</p>
           </div>
           <div className="trust-grid">
             {trustCards.map((card, i) => (
@@ -167,7 +169,7 @@ export default function HvacPage() {
             ))}
           </div>
           <div className="trust-footer reveal">
-            <p>Every contractor in the Fixxit network passes a thorough background check and credential verification before we ever send them to your door. <strong>Your safety is non-negotiable.</strong></p>
+            <p>Unlicensed electrical work can void your homeowner&apos;s insurance and create hidden fire hazards. <strong>Every Fixxit electrician is licensed, pulls permits when required, and does the job to code.</strong></p>
           </div>
         </div>
       </section>
@@ -178,29 +180,29 @@ export default function HvacPage() {
           <div className="section-header reveal">
             <div className="accent-line" />
             <h2 className="section-heading">How It Works</h2>
-            <p className="section-subheading">From your call to a working HVAC system — here&apos;s what to expect.</p>
+            <p className="section-subheading">Safe, transparent, and done to code.</p>
           </div>
           <div style={{ maxWidth: '580px', margin: '0 auto' }}>
             <div className="steps-list">
               <div className="step-item">
                 <div className="step-number">1</div>
                 <div className="step-content">
-                  <h3>Tell Us What&apos;s Wrong</h3>
-                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the quick form. Tell us your system type, what it&apos;s doing (or not doing), and your location. Takes about 2 minutes.</p>
+                  <h3>Tell Us What&apos;s Happening</h3>
+                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the form. Describe the electrical issue — flickering, tripping, no power, or an upgrade you need. We&apos;ll get you scheduled fast.</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">2</div>
                 <div className="step-content">
-                  <h3>We Match You With a Local Tech</h3>
-                  <p>We connect you with a vetted, licensed HVAC technician in your area — usually within 2 hours. You&apos;ll know who&apos;s coming and when.</p>
+                  <h3>We Match You With a Licensed Electrician</h3>
+                  <p>We connect you with a vetted, licensed electrician in your area — typically scheduled within 24–48 hours. Electrical emergencies are prioritized for same-day.</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>Diagnosis, Upfront Price, Fixed</h3>
-                  <p>Your tech arrives, diagnoses the problem, and gives you the exact price before starting. You approve it. They fix it. You get your comfort back.</p>
+                  <h3>Diagnosis, Upfront Quote, Fixed to Code</h3>
+                  <p>Your electrician diagnoses the issue, explains it in plain language, quotes the exact price, and gets to work after you approve. All work is code-compliant and backed by the warranty.</p>
                 </div>
               </div>
             </div>
@@ -213,17 +215,17 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading">What HVAC Service Typically Costs</h2>
-            <p className="section-subheading">Realistic ranges so you know what to expect — no sticker shock, no bait-and-switch.</p>
+            <h2 className="section-heading">What Electrical Work Typically Costs</h2>
+            <p className="section-subheading">Realistic ranges for common electrical jobs — exact quotes depend on your panel and scope.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem', maxWidth: '900px', margin: '0 auto 2.5rem' }} className="reveal">
             {[
-              { service: 'AC Seasonal Tune-Up', range: '$79 – $149', note: 'Recommended annually before summer' },
-              { service: 'AC Repair (Minor)', range: '$150 – $350', note: 'Capacitor, contactor, thermostat, etc.' },
-              { service: 'AC Repair (Major)', range: '$350 – $700', note: 'Compressor, coil, refrigerant issues' },
-              { service: 'Furnace Repair', range: '$200 – $500', note: 'Igniter, heat exchanger, blower motor' },
-              { service: 'Thermostat Replacement', range: '$150 – $350', note: 'Includes smart thermostat options' },
-              { service: 'New Central AC System', range: '$3,500 – $8,000', note: 'Fully installed, all brands' },
+              { service: 'Outlet or Switch Replacement', range: '$100 – $250', note: 'Per outlet, includes GFCI upgrade' },
+              { service: 'Ceiling Fan Installation', range: '$150 – $350', note: 'With existing box, includes wiring' },
+              { service: 'New Circuit Installation', range: '$250 – $600', note: 'For appliances, EV chargers, etc.' },
+              { service: 'Electrical Safety Inspection', range: '$150 – $300', note: 'Full home assessment and report' },
+              { service: 'Panel Upgrade (100→200 amp)', range: '$1,500 – $4,000', note: 'Includes permit and inspection' },
+              { service: 'EV Charger Installation', range: '$400 – $1,200', note: 'Level 2 charger, dedicated circuit' },
             ].map(item => (
               <div key={item.service} style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: '12px', padding: '1.5rem', boxShadow: 'var(--shadow-sm)' }}>
                 <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.5rem', fontSize: '0.95rem' }}>{item.service}</div>
@@ -234,7 +236,7 @@ export default function HvacPage() {
           </div>
           <div style={{ background: 'var(--white)', border: '2px solid var(--yellow)', borderRadius: '12px', padding: '1.5rem 2rem', maxWidth: '640px', margin: '0 auto', textAlign: 'center' }} className="reveal">
             <p style={{ color: 'var(--gray-700)', margin: 0, lineHeight: 1.7 }}>
-              <strong style={{ color: 'var(--navy)', fontFamily: 'var(--font-heading)' }}>Zero hidden fees. Ever.</strong> Your tech will give you the exact price before any work starts. What they quote is what you pay.
+              <strong style={{ color: 'var(--navy)', fontFamily: 'var(--font-heading)' }}>You know the price before we touch anything.</strong> No hourly surprises. No scope creep without approval. What we quote is what you pay.
             </p>
           </div>
         </div>
@@ -245,12 +247,12 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading">Common HVAC Questions</h2>
-            <p className="section-subheading">Straight answers — no runaround.</p>
+            <h2 className="section-heading">Electrical Questions Answered</h2>
+            <p className="section-subheading">The stuff homeowners actually want to know.</p>
           </div>
           <ServiceFAQ faqs={faqs} />
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Have a question we didn&apos;t answer? Just ask.</p>
+            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Electrical emergency? Don&apos;t wait — call us now.</p>
             <a href="tel:8882295696" className="btn btn-blue">📞 Call 888-229-5696</a>
           </div>
         </div>
@@ -261,17 +263,17 @@ export default function HvacPage() {
         <div className="container">
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 900, color: 'var(--white)', marginBottom: '1rem' }}>
-              Ready to Get Your HVAC Fixed?
+              Electrical Issues Don&apos;t Fix Themselves.
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.05rem', marginBottom: '2rem', lineHeight: 1.7 }}>
-              Don&apos;t sweat it out (or freeze). Call now and we&apos;ll have a licensed tech at your door today.
+              Get a licensed electrician out today. Your home&apos;s safety — and your peace of mind — are worth it.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
               <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', marginTop: '1.5rem' }}>
-              Licensed · Insured · Background-Checked · 1-Year Warranty
+              Licensed · Insured · Code-Compliant · 1-Year Warranty
             </p>
           </div>
         </div>

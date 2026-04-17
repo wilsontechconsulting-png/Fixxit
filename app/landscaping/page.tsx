@@ -4,68 +4,70 @@ import ScrollAnimations from '@/components/ScrollAnimations'
 import ServiceFAQ from '@/components/ServiceFAQ'
 
 export const metadata: Metadata = {
-  title: 'HVAC Services — AC Repair, Furnace & Heat Pump | Fixxit Pros',
-  description: 'Licensed HVAC technicians for AC repair, furnace service, heat pumps, and emergency HVAC. 2-hour response, upfront pricing, 1-year warranty. Call 888-229-5696.',
+  title: 'Landscaping Services — Design, Installation & Hardscaping | Fixxit Pros',
+  description: 'Professional landscaping services including design, planting, hardscaping, irrigation, and outdoor transformations. Upfront pricing, licensed pros. Call 888-229-5696.',
 }
 
 const services = [
-  'AC Repair (All Brands)',
-  'Central AC Installation',
-  'Mini-Split AC Installation',
-  'Furnace Repair & Service',
-  'Heat Pump Installation & Repair',
-  'Ductwork Inspection & Sealing',
-  'Air Handler Service',
-  'Thermostat Installation & Smart Upgrades',
-  'Indoor Air Quality Systems',
-  'Whole-Home Humidifiers & Dehumidifiers',
-  'Seasonal Maintenance Tune-Ups',
-  'Evaporator & Condenser Coil Cleaning',
-  'Refrigerant Recharge & Leak Repair',
-  'Emergency HVAC Service',
+  'Landscape Design & Planning',
+  'Planting Beds & Garden Installation',
+  'Sod Installation',
+  'Seed & Lawn Establishment',
+  'Mulch Installation',
+  'Tree & Shrub Planting',
+  'Perennial & Annual Flower Installation',
+  'Retaining Wall Construction',
+  'Patio Design & Installation',
+  'Walkway & Pathway Installation',
+  'Outdoor Lighting Design',
+  'Irrigation System Installation',
+  'Irrigation Repair & Winterization',
+  'Drainage Solutions',
+  'Grading & Land Leveling',
+  'Backyard Transformation Projects',
 ]
 
 const painPoints = [
-  "Your AC runs constantly but the house won't cool below 80°",
-  'Your heating bill spiked this month but the house still feels cold',
-  "There's a burning or musty smell every time the system kicks on",
-  "You're hearing grinding, banging, or high-pitched squealing from your unit",
-  'Some rooms are freezing while others are sweltering',
-  'Your AC keeps tripping the breaker or shutting off on its own',
-  "Your system is over 10 years old and you're nervous about this summer",
+  "Your yard looks bare, neglected, or just like everyone else's on the block",
+  "You've been meaning to tackle a landscaping project for 3+ years and it never happens",
+  'Your front yard curb appeal is hurting your home value and you know it',
+  "You have drainage problems — standing water, erosion, or a soggy yard after rain",
+  "You want a patio or outdoor space but don't know where to start",
+  "Your planting beds are overgrown, weedy, or completely barren",
+  "You're selling your home and first impressions aren't making the impression you need",
 ]
 
 const trustCards = [
-  { icon: '🛡️', title: '1-Year Warranty', desc: 'All HVAC work is backed by a full 12-month warranty on parts and labor. If it fails, we fix it free.' },
-  { icon: '💵', title: 'Upfront Pricing', desc: 'Your tech diagnoses the problem and quotes the price before touching anything. Zero surprises on your bill.' },
-  { icon: '⚡', title: '2-Hour Response', desc: 'We match you with a local HVAC tech fast. Most calls are scheduled same-day — emergency calls within 2 hours.' },
-  { icon: '✅', title: 'Licensed & Insured', desc: "Every technician is fully licensed, insured, and background-checked. We never send someone to your home we wouldn't send to ours." },
+  { icon: '🌿', title: 'Design Expertise', desc: 'Our landscape pros plan projects for long-term beauty and low maintenance — not just what looks good on install day.' },
+  { icon: '💵', title: 'Upfront Pricing', desc: 'You get a detailed written quote before any shovels go in the ground. No hourly rates, no scope surprises.' },
+  { icon: '🛡️', title: '1-Year Warranty', desc: 'All installation work is backed by a 1-year warranty. Plants that fail within the warranty period are replaced.' },
+  { icon: '✅', title: 'Insured & Background-Checked', desc: 'Every landscaping pro is fully insured and background-checked. Your property is protected throughout the project.' },
 ]
 
 const faqs = [
   {
-    question: 'How fast can you get a tech to my home?',
-    answer: "We target a 2-hour response for emergencies and same-day scheduling for most service calls. During peak summer and winter seasons, we have extra coverage to make sure you're not waiting.",
+    question: 'Do you offer both design and installation?',
+    answer: "Yes — we handle the full project from design consultation through final installation. You can come to us with a blank slate or a half-finished idea, and we'll help you develop a plan that fits your budget and goals.",
   },
   {
-    question: 'Do you work on all HVAC brands?',
-    answer: 'Yes — our techs are trained on all major brands including Carrier, Trane, Lennox, Rheem, Goodman, York, American Standard, and more. If you have it, we can fix it.',
+    question: 'What does a typical landscaping project cost?',
+    answer: 'It varies enormously by scope. A basic front yard refresh (mulch, plants, edging) might run $500–$2,000. A full backyard transformation with patio, lighting, and plantings can run $10,000–$50,000+. We give you an exact quote after understanding your vision and site.',
   },
   {
-    question: 'Will I know the price before work starts?',
-    answer: "Always. Your technician diagnoses the problem, explains exactly what's needed, and gives you the price upfront. You approve it before any work begins. No pressure, no surprise charges.",
+    question: 'Will the plants survive? Do you guarantee them?',
+    answer: "Yes — we provide a 1-year warranty on all plant material we install, assuming proper watering is maintained. We select plants suited to your climate, soil type, and sun exposure so they're set up to thrive, not just look good on day one.",
   },
   {
-    question: 'Is my system worth repairing or should I replace it?',
-    answer: "We give you an honest assessment based on the age and condition of your system. A general rule: if repair costs exceed 50% of replacement cost on a system older than 10 years, replacement often makes more financial sense. We'll walk you through both options and let you decide.",
+    question: 'Can you help with drainage problems in my yard?',
+    answer: "Absolutely. Drainage issues are one of the most common landscaping problems we solve. We assess the grading, identify where water is pooling or eroding, and design solutions — French drains, regrading, dry creek beds, or swales — that redirect water where it belongs.",
   },
   {
-    question: 'What does the 1-year warranty actually cover?',
-    answer: 'It covers all parts and labor performed by our technicians. If the same issue comes back within 12 months, we return and fix it at no charge. It does not cover pre-existing conditions or unrelated failures.',
+    question: 'How long do landscaping projects take?',
+    answer: "Small projects (planting beds, mulch, sod) typically take 1–3 days. Mid-size projects with hardscaping take 1–2 weeks. Large backyard transformations can take 3–6 weeks. We give you a realistic timeline upfront and keep you updated throughout.",
   },
 ]
 
-export default function HvacPage() {
+export default function LandscapingPage() {
   return (
     <>
       <ScrollAnimations />
@@ -75,20 +77,20 @@ export default function HvacPage() {
         <div className="container">
           <div style={{ maxWidth: '720px' }}>
             <p style={{ color: 'var(--yellow)', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
-              HVAC Services · Fixxit Pros
+              Landscaping Services · Fixxit Pros
             </p>
             <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', marginBottom: '1.25rem', lineHeight: 1.05 }}>
-              AC Not Cooling?<br />Heat Not Working?<br />We Fix It Today.
+              Ready to Love<br />Your Yard Again?<br />Let&apos;s Make It Happen.
             </h1>
             <p style={{ fontSize: '1.15rem', color: 'rgba(255,255,255,0.82)', marginBottom: '2rem', lineHeight: 1.7, maxWidth: '580px' }}>
-              When your HVAC fails, every hour matters. We connect you with licensed technicians who show up fast, diagnose honestly, and fix it right the first time — or we make it right.
+              From a simple planting bed to a complete outdoor transformation — our landscaping pros design, plan, and install projects that look great and last. Upfront pricing, no surprises.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
               <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-              {['1-Year Warranty', '2-Hour Response', 'Upfront Pricing', 'Licensed & Insured'].map(badge => (
+              {['1-Year Plant Warranty', 'Design Included', 'Upfront Pricing', 'Insured & Vetted'].map(badge => (
                 <div key={badge} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(255,255,255,0.9)', fontSize: '0.875rem', fontWeight: 600 }}>
                   <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 20, height: 20, background: 'var(--yellow)', color: 'var(--navy)', borderRadius: '50%', fontSize: '0.7rem', fontWeight: 900, flexShrink: 0 }}>✓</span>
                   {badge}
@@ -104,8 +106,8 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading">We Handle ANY HVAC Issue</h2>
-            <p className="section-subheading">From a quick tune-up to a full system replacement — our licensed techs cover it all.</p>
+            <h2 className="section-heading">Full-Service Landscaping</h2>
+            <p className="section-subheading">Design through installation — we handle every aspect of your outdoor project.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.875rem', marginBottom: '2.5rem' }} className="reveal">
             {services.map(svc => (
@@ -116,7 +118,7 @@ export default function HvacPage() {
             ))}
           </div>
           <div style={{ textAlign: 'center' }}>
-            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Don&apos;t see your specific issue? We handle it. Just ask.</p>
+            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Have a specific vision? We can work from your ideas or help you develop a plan from scratch.</p>
             <Link href="/questions" className="btn btn-primary btn-lg">Get a Free Quote →</Link>
           </div>
         </div>
@@ -126,11 +128,11 @@ export default function HvacPage() {
       <section style={{ padding: '5rem 0', background: 'var(--white)' }}>
         <div className="container">
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '0.5rem' }}>
+            <div className="reveal">
               <div style={{ display: 'inline-block', width: 60, height: 4, background: 'var(--yellow)', borderRadius: 99, marginBottom: '1rem' }} />
-              <h2 className="section-heading">Sound Familiar?</h2>
+              <h2 className="section-heading">Does This Sound Like Your Yard?</h2>
               <p style={{ color: 'var(--gray-600)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
-                These are the HVAC problems homeowners come to us with most. If any of these sound like your situation, don&apos;t wait — they get worse fast.
+                These are the landscaping situations homeowners come to us with most — and all of them are transformable.
               </p>
             </div>
             <ul style={{ listStyle: 'none', padding: 0 }} className="reveal">
@@ -154,8 +156,8 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading" style={{ color: 'var(--white)' }}>Why Homeowners Trust Fixxit for HVAC</h2>
-            <p className="section-subheading" style={{ color: 'rgba(255,255,255,0.7)' }}>We&apos;re not the cheapest option — we&apos;re the one you call when it actually needs to get fixed.</p>
+            <h2 className="section-heading" style={{ color: 'var(--white)' }}>Why Homeowners Trust Fixxit for Landscaping</h2>
+            <p className="section-subheading" style={{ color: 'rgba(255,255,255,0.7)' }}>We design for your lifestyle, your climate, and your long-term goals — not just what looks good on the day we plant it.</p>
           </div>
           <div className="trust-grid">
             {trustCards.map((card, i) => (
@@ -167,7 +169,7 @@ export default function HvacPage() {
             ))}
           </div>
           <div className="trust-footer reveal">
-            <p>Every contractor in the Fixxit network passes a thorough background check and credential verification before we ever send them to your door. <strong>Your safety is non-negotiable.</strong></p>
+            <p>We plant the right plants for your region, soil, and sun exposure. <strong>Plants that fail within 12 months of installation are replaced — no questions, no hassle.</strong></p>
           </div>
         </div>
       </section>
@@ -178,29 +180,29 @@ export default function HvacPage() {
           <div className="section-header reveal">
             <div className="accent-line" />
             <h2 className="section-heading">How It Works</h2>
-            <p className="section-subheading">From your call to a working HVAC system — here&apos;s what to expect.</p>
+            <p className="section-subheading">From vision to reality — here&apos;s the process.</p>
           </div>
           <div style={{ maxWidth: '580px', margin: '0 auto' }}>
             <div className="steps-list">
               <div className="step-item">
                 <div className="step-number">1</div>
                 <div className="step-content">
-                  <h3>Tell Us What&apos;s Wrong</h3>
-                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the quick form. Tell us your system type, what it&apos;s doing (or not doing), and your location. Takes about 2 minutes.</p>
+                  <h3>Tell Us Your Vision</h3>
+                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the form. Describe what you&apos;re hoping to achieve — or just tell us what&apos;s wrong with the yard and we&apos;ll help figure out the solution.</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">2</div>
                 <div className="step-content">
-                  <h3>We Match You With a Local Tech</h3>
-                  <p>We connect you with a vetted, licensed HVAC technician in your area — usually within 2 hours. You&apos;ll know who&apos;s coming and when.</p>
+                  <h3>Design Consultation & Quote</h3>
+                  <p>We connect you with a landscaping specialist who will assess your property, discuss your goals, and provide a detailed written quote. No pressure. You decide if you want to proceed.</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>Diagnosis, Upfront Price, Fixed</h3>
-                  <p>Your tech arrives, diagnoses the problem, and gives you the exact price before starting. You approve it. They fix it. You get your comfort back.</p>
+                  <h3>Installation — On Time & On Budget</h3>
+                  <p>Your landscaping crew arrives on the scheduled date, installs per the agreed plan, and cleans up completely. You get a beautiful yard — and a 1-year warranty on the work.</p>
                 </div>
               </div>
             </div>
@@ -213,17 +215,17 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading">What HVAC Service Typically Costs</h2>
-            <p className="section-subheading">Realistic ranges so you know what to expect — no sticker shock, no bait-and-switch.</p>
+            <h2 className="section-heading">What Landscaping Projects Typically Cost</h2>
+            <p className="section-subheading">Ballpark ranges to help you plan — exact quotes provided after a site assessment.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem', maxWidth: '900px', margin: '0 auto 2.5rem' }} className="reveal">
             {[
-              { service: 'AC Seasonal Tune-Up', range: '$79 – $149', note: 'Recommended annually before summer' },
-              { service: 'AC Repair (Minor)', range: '$150 – $350', note: 'Capacitor, contactor, thermostat, etc.' },
-              { service: 'AC Repair (Major)', range: '$350 – $700', note: 'Compressor, coil, refrigerant issues' },
-              { service: 'Furnace Repair', range: '$200 – $500', note: 'Igniter, heat exchanger, blower motor' },
-              { service: 'Thermostat Replacement', range: '$150 – $350', note: 'Includes smart thermostat options' },
-              { service: 'New Central AC System', range: '$3,500 – $8,000', note: 'Fully installed, all brands' },
+              { service: 'Planting Bed Refresh', range: '$500 – $2,000', note: 'Edging, mulch, plants, cleanup' },
+              { service: 'Sod Installation', range: '$500 – $3,000', note: 'Per project, depends on square footage' },
+              { service: 'Mulch Installation', range: '$200 – $800', note: 'Full property, multiple beds' },
+              { service: 'Patio Installation', range: '$3,000 – $15,000', note: 'Concrete, pavers, or stone' },
+              { service: 'Retaining Wall', range: '$2,000 – $10,000', note: 'Block or stone, depends on height/length' },
+              { service: 'Irrigation System', range: '$1,500 – $4,000', note: 'Full yard, installed and tested' },
             ].map(item => (
               <div key={item.service} style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: '12px', padding: '1.5rem', boxShadow: 'var(--shadow-sm)' }}>
                 <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.5rem', fontSize: '0.95rem' }}>{item.service}</div>
@@ -234,7 +236,7 @@ export default function HvacPage() {
           </div>
           <div style={{ background: 'var(--white)', border: '2px solid var(--yellow)', borderRadius: '12px', padding: '1.5rem 2rem', maxWidth: '640px', margin: '0 auto', textAlign: 'center' }} className="reveal">
             <p style={{ color: 'var(--gray-700)', margin: 0, lineHeight: 1.7 }}>
-              <strong style={{ color: 'var(--navy)', fontFamily: 'var(--font-heading)' }}>Zero hidden fees. Ever.</strong> Your tech will give you the exact price before any work starts. What they quote is what you pay.
+              <strong style={{ color: 'var(--navy)', fontFamily: 'var(--font-heading)' }}>Written quote before any work begins.</strong> Your project, your budget, your approval. We never start without it.
             </p>
           </div>
         </div>
@@ -245,12 +247,12 @@ export default function HvacPage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="accent-line" />
-            <h2 className="section-heading">Common HVAC Questions</h2>
-            <p className="section-subheading">Straight answers — no runaround.</p>
+            <h2 className="section-heading">Landscaping Questions</h2>
+            <p className="section-subheading">What homeowners ask us most before starting a project.</p>
           </div>
           <ServiceFAQ faqs={faqs} />
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Have a question we didn&apos;t answer? Just ask.</p>
+            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Have a project idea? Let&apos;s talk through it.</p>
             <a href="tel:8882295696" className="btn btn-blue">📞 Call 888-229-5696</a>
           </div>
         </div>
@@ -261,17 +263,17 @@ export default function HvacPage() {
         <div className="container">
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 900, color: 'var(--white)', marginBottom: '1rem' }}>
-              Ready to Get Your HVAC Fixed?
+              Stop Driving Past Your Dream Yard.
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.05rem', marginBottom: '2rem', lineHeight: 1.7 }}>
-              Don&apos;t sweat it out (or freeze). Call now and we&apos;ll have a licensed tech at your door today.
+              Get a free quote today. Landscaping projects book fast — especially in spring and fall.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
               <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', marginTop: '1.5rem' }}>
-              Licensed · Insured · Background-Checked · 1-Year Warranty
+              Licensed · Insured · Background-Checked · 1-Year Plant Warranty
             </p>
           </div>
         </div>

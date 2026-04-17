@@ -17,13 +17,13 @@ const services = [
     icon: '⚡',
     name: 'Electrical',
     desc: 'Licensed electricians. Code-compliant work, guaranteed.',
-    href: '/questions',
+    href: '/electrical',
   },
   {
     icon: '🏚️',
     name: 'Roofing',
     desc: 'Repairs and replacements with a 1-year workmanship warranty.',
-    href: '/questions',
+    href: '/roofing',
   },
   {
     icon: '✂️',
@@ -35,7 +35,31 @@ const services = [
     icon: '🪟',
     name: 'Windows & Doors',
     desc: 'Drafty, broken, or hard to open — we fix it right.',
-    href: '/questions',
+    href: '/windows-doors',
+  },
+  {
+    icon: '🚿',
+    name: 'Bath & Shower',
+    desc: 'From leaky faucets to full bathroom remodels.',
+    href: '/bath-shower',
+  },
+  {
+    icon: '🌬️',
+    name: 'Air Duct & Carpet',
+    desc: 'Professional cleaning for better air quality and cleaner floors.',
+    href: '/air-duct-carpet',
+  },
+  {
+    icon: '🌿',
+    name: 'Landscaping',
+    desc: 'Design, installation, and full outdoor transformations.',
+    href: '/landscaping',
+  },
+  {
+    icon: '🏠',
+    name: 'Siding',
+    desc: 'Repair or replace damaged siding. Protect your home.',
+    href: '/siding',
   },
 ]
 
