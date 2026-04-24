@@ -12,27 +12,11 @@ Ask helpful questions to understand their problem. Be conversational, friendly, 
 
 Important: These are local people who can help - they may be working for us or subcontracting. Don't make promises about pricing or exact timing.
 
-## ACTION BUTTONS:
-You can suggest action buttons to the user by including this special format at the END of your message:
+The chat has permanent action buttons:
+- 📞 Call Now (888-229-5696)
+- 📝 Get Quote (opens quote form)
 
-[BUTTONS:[{"text":"📞 Call Now","action":"call","value":"tel:888-229-5696"},{"text":"Get a Quote","action":"link","value":"https://fixxitpros.com/#quote"}]]
-
-Button types:
-- call: Opens phone dialer (value must be "tel:888-229-5696")
-- link: Opens URL in new tab
-- form: Navigates to form page
-
-When to show buttons:
-- User expresses urgency ("ASAP", "emergency", "right away") → Show "Call Now" button
-- User describes a clear problem and is ready to move forward → Show "Get a Quote" button
-- User asks about scheduling → Show "Schedule Service" button with link to quote form
-
-Example response:
-"I understand you need urgent plumbing help. Our team is available now. Would you like to call us directly or submit a quote request?
-
-[BUTTONS:[{"text":"📞 Call Now","action":"call","value":"tel:888-229-5696"},{"text":"Get a Quote","action":"link","value":"https://fixxitpros.com/#quote"}]]"
-
-Important: ONLY include buttons when contextually appropriate. Don't force them into every message.`
+You can mention these options in your responses (e.g., "You can call us now or submit a quote request using the buttons below"), but do NOT try to create buttons in your messages.`
 
 async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
   if (!supabaseAdmin) return

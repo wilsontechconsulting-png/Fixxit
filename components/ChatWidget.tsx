@@ -4,11 +4,6 @@ import { useState, useRef, useEffect } from 'react'
 interface Message {
   role: 'user' | 'assistant'
   content: string
-  buttons?: Array<{
-    text: string
-    action: 'call' | 'link' | 'form'
-    value: string
-  }>
 }
 
 function generateSessionId() {
@@ -63,7 +58,6 @@ export default function ChatWidget() {
       const reader = res.body?.getReader()
       const decoder = new TextDecoder()
       let botMsg = ''
-      let buttons: Message['buttons'] = undefined
 
       setMessages(prev => [...prev, { role: 'assistant', content: '' }])
 
@@ -81,11 +75,9 @@ export default function ChatWidget() {
                 const parsed = JSON.parse(data)
                 const delta = parsed.choices?.[0]?.delta?.content || ''
                 botMsg += delta
-                // Strip [BUTTONS:...] during streaming for clean display
-                const displayMsg = botMsg.replace(/\[BUTTONS:.*?\]/g, '').trim()
                 setMessages(prev => {
                   const updated = [...prev]
-                  updated[updated.length - 1] = { role: 'assistant', content: displayMsg }
+                  updated[updated.length - 1] = { role: 'assistant', content: botMsg }
                   return updated
                 })
               } catch {
@@ -94,26 +86,6 @@ export default function ChatWidget() {
             }
           }
         }
-
-        // Parse buttons from complete message
-        const buttonMatch = botMsg.match(/\[BUTTONS:(.*?)\]/)
-        if (buttonMatch) {
-          try {
-            buttons = JSON.parse(buttonMatch[1])
-          } catch (e) {
-            console.error('Failed to parse buttons:', e)
-          }
-        }
-        
-        // Clean message (remove button markup)
-        const cleanMsg = botMsg.replace(/\[BUTTONS:.*?\]/g, '').trim()
-
-        // Update final message with clean content and parsed buttons
-        setMessages(prev => {
-          const updated = [...prev]
-          updated[updated.length - 1] = { role: 'assistant', content: cleanMsg, buttons }
-          return updated
-        })
       }
     } catch {
       setMessages(prev => [...prev, {
@@ -150,27 +122,6 @@ export default function ChatWidget() {
             {messages.map((msg, i) => (
               <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
                 {msg.content}
-                {msg.buttons && msg.buttons.length > 0 && (
-                  <div className="chat-buttons">
-                    {msg.buttons.map((btn, btnIndex) => (
-                      <button
-                        key={btnIndex}
-                        className="chat-action-btn"
-                        onClick={() => {
-                          if (btn.action === 'call') {
-                            window.location.href = btn.value
-                          } else if (btn.action === 'link') {
-                            window.open(btn.value, '_blank')
-                          } else if (btn.action === 'form') {
-                            window.location.href = btn.value
-                          }
-                        }}
-                      >
-                        {btn.text}
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
             ))}
             {loading && (
@@ -180,6 +131,26 @@ export default function ChatWidget() {
             )}
             <div ref={messagesEndRef} />
           </div>
+          {/* Quick Action Buttons */}
+          <div className="chat-quick-actions">
+            <button 
+              className="quick-action-btn quick-action-call"
+              onClick={() => window.location.href = 'tel:888-229-5696'}
+              aria-label="Call now"
+            >
+              <span className="quick-action-icon">📞</span>
+              <span className="quick-action-text">Call Now</span>
+            </button>
+            <button 
+              className="quick-action-btn quick-action-quote"
+              onClick={() => window.open('https://fixxitpros.com/#quote', '_blank')}
+              aria-label="Get a quote"
+            >
+              <span className="quick-action-icon">📝</span>
+              <span className="quick-action-text">Get Quote</span>
+            </button>
+          </div>
+
           <div className="chat-input-area">
             <textarea
               className="chat-input"
