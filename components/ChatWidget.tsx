@@ -81,9 +81,11 @@ export default function ChatWidget() {
                 const parsed = JSON.parse(data)
                 const delta = parsed.choices?.[0]?.delta?.content || ''
                 botMsg += delta
+                // Strip [BUTTONS:...] during streaming for clean display
+                const displayMsg = botMsg.replace(/\[BUTTONS:.*?\]/g, '').trim()
                 setMessages(prev => {
                   const updated = [...prev]
-                  updated[updated.length - 1] = { role: 'assistant', content: botMsg }
+                  updated[updated.length - 1] = { role: 'assistant', content: displayMsg }
                   return updated
                 })
               } catch {
@@ -93,21 +95,23 @@ export default function ChatWidget() {
           }
         }
 
-        // Parse buttons from message if present (format: [BUTTONS:{json}])
+        // Parse buttons from complete message
         const buttonMatch = botMsg.match(/\[BUTTONS:(.*?)\]/)
         if (buttonMatch) {
           try {
             buttons = JSON.parse(buttonMatch[1])
-            botMsg = botMsg.replace(/\[BUTTONS:.*?\]/, '').trim()
-          } catch {
-            // ignore malformed button data
+          } catch (e) {
+            console.error('Failed to parse buttons:', e)
           }
         }
+        
+        // Clean message (remove button markup)
+        const cleanMsg = botMsg.replace(/\[BUTTONS:.*?\]/g, '').trim()
 
-        // Update final message with buttons
+        // Update final message with clean content and parsed buttons
         setMessages(prev => {
           const updated = [...prev]
-          updated[updated.length - 1] = { role: 'assistant', content: botMsg, buttons }
+          updated[updated.length - 1] = { role: 'assistant', content: cleanMsg, buttons }
           return updated
         })
       }
