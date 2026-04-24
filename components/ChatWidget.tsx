@@ -143,7 +143,7 @@ export default function ChatWidget() {
             </button>
             <button 
               className="quick-action-btn quick-action-quote"
-              onClick={() => window.open('https://fixxitpros.com/#quote', '_blank')}
+              onClick={() => window.open('https://fixxitpros.com/questions', '_blank')}
               aria-label="Get a quote"
             >
               <span className="quick-action-icon">📝</span>

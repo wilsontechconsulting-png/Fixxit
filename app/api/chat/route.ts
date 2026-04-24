@@ -14,9 +14,9 @@ Important: These are local people who can help - they may be working for us or s
 
 The chat has permanent action buttons:
 - 📞 Call Now (888-229-5696)
-- 📝 Get Quote (opens quote form)
+- 📝 Get Quote (opens questions form at fixxitpros.com/questions)
 
-You can mention these options in your responses (e.g., "You can call us now or submit a quote request using the buttons below"), but do NOT try to create buttons in your messages.`
+You can mention these options in your responses (e.g., "You can call us now or answer a few quick questions using the buttons below"), but do NOT try to create buttons in your messages.`
 
 async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
   if (!supabaseAdmin) return
