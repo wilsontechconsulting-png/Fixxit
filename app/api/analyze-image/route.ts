@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Call Gemini Vision API
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
     const result = await model.generateContent([VISION_PROMPT, imagePart])
     const analysis = result.response.text()
 
