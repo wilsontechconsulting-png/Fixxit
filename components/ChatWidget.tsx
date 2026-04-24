@@ -140,7 +140,9 @@ export default function ChatWidget() {
         body: formData
       })
 
+      console.log('Response status:', res.status)
       const result = await res.json()
+      console.log('Response data:', result)
 
       if (result.analysis) {
         // Replace "analyzing" message with result
@@ -162,9 +164,14 @@ export default function ChatWidget() {
         throw new Error('No analysis returned')
       }
     } catch (error) {
+      console.error('Photo upload error:', error)
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        type: typeof error
+      })
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Sorry, I had trouble analyzing that image. Please try again or describe your problem in text!'
+        content: `Sorry, I had trouble analyzing that image. Error: ${error instanceof Error ? error.message : 'Unknown'}. Please try again or describe your problem in text!`
       }])
     } finally {
       setUploading(false)
