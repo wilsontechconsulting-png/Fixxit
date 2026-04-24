@@ -82,11 +82,21 @@ export async function POST(req: NextRequest) {
       success: true 
     })
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Image analysis error:', error)
+    console.error('Error name:', error?.name)
+    console.error('Error message:', error?.message)
+    console.error('Error stack:', error?.stack)
+    console.error('API Key present:', !!process.env.GOOGLE_GEMINI_API_KEY)
+    console.error('API Key first 10 chars:', process.env.GOOGLE_GEMINI_API_KEY?.slice(0, 10))
+    
     return Response.json({ 
       error: 'Failed to analyze image',
-      analysis: 'Sorry, I had trouble analyzing that image. Please try again or describe your problem in text, and I\'ll be happy to help!'
+      analysis: 'Sorry, I had trouble analyzing that image. Please try again or describe your problem in text, and I\'ll be happy to help!',
+      debug: process.env.NODE_ENV === 'development' ? {
+        errorMessage: error?.message,
+        hasApiKey: !!process.env.GOOGLE_GEMINI_API_KEY
+      } : undefined
     }, { status: 500 })
   }
 }

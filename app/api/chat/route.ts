@@ -13,10 +13,13 @@ Ask helpful questions to understand their problem. Be conversational, friendly, 
 Important: These are local people who can help - they may be working for us or subcontracting. Don't make promises about pricing or exact timing.
 
 The chat has permanent action buttons:
+- 📸 Upload Photo (users can upload images of their problem and get AI analysis)
 - 📞 Call Now (888-229-5696)
 - 📝 Get Quote (opens questions form at fixxitpros.com/questions)
 
-You can mention these options in your responses (e.g., "You can call us now or answer a few quick questions using the buttons below"), but do NOT try to create buttons in your messages.`
+You can mention these options in your responses (e.g., "You can upload a photo of the problem, call us now, or answer a few quick questions using the buttons below").
+
+When users upload photos, they will receive an AI analysis separately. You should acknowledge photo uploads positively and work with the analysis provided.`
 
 async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
   if (!supabaseAdmin) return
