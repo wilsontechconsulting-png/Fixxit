@@ -4,6 +4,11 @@ import { useState, useRef, useEffect } from 'react'
 interface Message {
   role: 'user' | 'assistant'
   content: string
+  buttons?: Array<{
+    text: string
+    action: 'call' | 'link' | 'form'
+    value: string
+  }>
 }
 
 function generateSessionId() {
@@ -58,6 +63,7 @@ export default function ChatWidget() {
       const reader = res.body?.getReader()
       const decoder = new TextDecoder()
       let botMsg = ''
+      let buttons: Message['buttons'] = undefined
 
       setMessages(prev => [...prev, { role: 'assistant', content: '' }])
 
@@ -86,6 +92,24 @@ export default function ChatWidget() {
             }
           }
         }
+
+        // Parse buttons from message if present (format: [BUTTONS:{json}])
+        const buttonMatch = botMsg.match(/\[BUTTONS:(.*?)\]/)
+        if (buttonMatch) {
+          try {
+            buttons = JSON.parse(buttonMatch[1])
+            botMsg = botMsg.replace(/\[BUTTONS:.*?\]/, '').trim()
+          } catch {
+            // ignore malformed button data
+          }
+        }
+
+        // Update final message with buttons
+        setMessages(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = { role: 'assistant', content: botMsg, buttons }
+          return updated
+        })
       }
     } catch {
       setMessages(prev => [...prev, {
@@ -122,6 +146,27 @@ export default function ChatWidget() {
             {messages.map((msg, i) => (
               <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
                 {msg.content}
+                {msg.buttons && msg.buttons.length > 0 && (
+                  <div className="chat-buttons">
+                    {msg.buttons.map((btn, btnIndex) => (
+                      <button
+                        key={btnIndex}
+                        className="chat-action-btn"
+                        onClick={() => {
+                          if (btn.action === 'call') {
+                            window.location.href = btn.value
+                          } else if (btn.action === 'link') {
+                            window.open(btn.value, '_blank')
+                          } else if (btn.action === 'form') {
+                            window.location.href = btn.value
+                          }
+                        }}
+                      >
+                        {btn.text}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
             {loading && (

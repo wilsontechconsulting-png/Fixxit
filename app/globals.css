@@ -487,6 +487,12 @@ h1, h2, h3, h4, h5, h6 {
 .chat-send-btn:hover { background: var(--blue-dark); }
 .chat-send-btn:disabled { background: var(--gray-400); cursor: not-allowed; }
 
+/* CHAT ACTION BUTTONS */
+.chat-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.chat-action-btn { padding: 0.625rem 1rem; background: var(--blue); color: var(--white); border: none; border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; cursor: pointer; transition: all var(--transition-fast); white-space: nowrap; }
+.chat-action-btn:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,102,255,0.2); }
+.chat-action-btn:active { transform: translateY(0); }
+
 @media (max-width: 559px) { .form-row { grid-template-columns: 1fr; } }
 @media (min-width: 900px) { :root { --container-padding: 2rem; } }
 
