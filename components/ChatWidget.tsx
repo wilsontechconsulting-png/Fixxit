@@ -22,7 +22,9 @@ export default function ChatWidget() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const sessionIdRef = useRef<string>(generateSessionId())
 
   useEffect(() => {
@@ -104,6 +106,74 @@ export default function ChatWidget() {
     }
   }
 
+  async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file || uploading) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file')
+      return
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image must be less than 5MB')
+      return
+    }
+
+    setUploading(true)
+
+    // Show uploading message
+    setMessages(prev => [...prev, {
+      role: 'user',
+      content: '📸 Analyzing photo...'
+    }])
+
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+      formData.append('session_id', sessionIdRef.current)
+
+      const res = await fetch('/api/analyze-image', {
+        method: 'POST',
+        body: formData
+      })
+
+      const result = await res.json()
+
+      if (result.analysis) {
+        // Replace "analyzing" message with result
+        setMessages(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = {
+            role: 'user',
+            content: '📸 Photo uploaded'
+          }
+          return updated
+        })
+
+        // Add AI analysis
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: result.analysis
+        }])
+      } else {
+        throw new Error('No analysis returned')
+      }
+    } catch (error) {
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'Sorry, I had trouble analyzing that image. Please try again or describe your problem in text!'
+      }])
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
+
   return (
     <div className="chat-widget">
       {open && (
@@ -134,6 +204,15 @@ export default function ChatWidget() {
           {/* Quick Action Buttons */}
           <div className="chat-quick-actions">
             <button 
+              className="quick-action-btn quick-action-photo"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              aria-label="Upload photo"
+            >
+              <span className="quick-action-icon">📸</span>
+              <span className="quick-action-text">{uploading ? 'Analyzing...' : 'Upload Photo'}</span>
+            </button>
+            <button 
               className="quick-action-btn quick-action-call"
               onClick={() => window.location.href = 'tel:888-229-5696'}
               aria-label="Call now"
@@ -150,6 +229,16 @@ export default function ChatWidget() {
               <span className="quick-action-text">Get Quote</span>
             </button>
           </div>
+
+          {/* Hidden file input */}
+          <input 
+            ref={fileInputRef}
+            type="file" 
+            accept="image/*" 
+            capture="environment"
+            onChange={handlePhotoUpload}
+            style={{ display: 'none' }}
+          />
 
           <div className="chat-input-area">
             <textarea
