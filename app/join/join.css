@@ -1,0 +1,335 @@
+/* Styles used only by /join pages so existing pages are untouched. */
+.join-trade-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.join-trade-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-base);
+}
+
+.join-trade-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: inherit;
+  border-color: var(--blue);
+}
+
+.join-trade-card-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.join-trade-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-lg);
+  background: var(--gray-100);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.join-trade-card h2 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+}
+
+.join-trade-card p {
+  margin: 0.15rem 0 0;
+  color: var(--gray-600);
+  font-size: 0.925rem;
+}
+
+.join-apply-cta {
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--radius-full);
+  padding: 0.55rem 1.15rem;
+}
+
+.join-trade-card:hover .join-apply-cta {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.join-back {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-600);
+}
+
+.join-back:hover { color: var(--navy); }
+
+.join-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.join-step-num {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--gray-200);
+  color: var(--gray-600);
+  flex-shrink: 0;
+}
+
+.join-step-num.active {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.join-step-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--gray-200);
+}
+
+.join-step-bar.active { background: var(--blue); }
+
+.join-radio-list {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.join-radio-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  background: var(--white);
+  font-size: 0.95rem;
+  color: var(--gray-800);
+}
+
+.join-radio-option.selected {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0,102,204,0.12);
+}
+
+.join-radio-option input {
+  margin-top: 0.2rem;
+  accent-color: var(--blue);
+  flex-shrink: 0;
+}
+
+.join-help {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin-top: 0.25rem;
+}
+
+.join-error {
+  margin-top: 1rem;
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.join-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.join-actions .btn { justify-content: center; }
+
+.join-license-note {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.join-file input[type="file"] {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+}
+
+.join-hero-extra {
+  margin-top: 0.75rem;
+}
+
+.join-page {
+  background: var(--gray-50);
+  padding-bottom: 4rem;
+}
+
+.join-intro {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+}
+
+.join-headline {
+  font-size: 1.1rem;
+  color: var(--gray-800);
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+}
+
+.join-franchise {
+  border: 1px solid rgba(45, 212, 191, 0.55);
+  background: rgba(240, 253, 250, 0.7);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.join-franchise h2 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.join-franchise ul {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.join-franchise li {
+  font-size: 0.975rem;
+  color: var(--gray-600);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.join-franchise li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #0f766e;
+}
+
+.join-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 1rem;
+}
+
+.join-job-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 700px) {
+  .join-job-grid.featured {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.join-job-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 1.35rem 1.4rem;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-base);
+  min-height: 100%;
+}
+
+.join-job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: inherit;
+  border-color: var(--blue);
+}
+
+.join-job-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0.5rem 0 0.35rem;
+}
+
+.join-job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-bottom: 0.15rem;
+}
+
+.join-job-card p {
+  margin: 0 0 1rem;
+  color: var(--gray-600);
+  font-size: 0.925rem;
+  flex: 1;
+}
+
+.join-filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 700px) {
+  .join-filters {
+    grid-template-columns: 1fr 180px;
+    align-items: end;
+  }
+}
+
+.join-empty {
+  background: var(--white);
+  border: 1px dashed var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  color: var(--gray-600);
+  text-align: center;
+}
+
+.join-all-openings {
+  margin-top: 2.75rem;
+}

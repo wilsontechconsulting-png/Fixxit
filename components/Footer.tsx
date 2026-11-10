@@ -34,7 +34,7 @@ export default function Footer() {
             <h4>Company</h4>
             <nav className="footer-links">
               <Link href="/questions">Contact Us</Link>
-              <Link href="/looking-for-work">Looking for Work</Link>
+              <Link href="/join">Looking for Work</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
               <Link href="/cookie-policy">Cookie Policy</Link>
             </nav>
