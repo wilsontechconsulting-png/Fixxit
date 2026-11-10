@@ -141,7 +141,7 @@ export default function JoinApplyForm({ job }: Props) {
   }
 
   return (
-    <div>
+    <div className="join-form">
       <div className="join-steps">
         {steps.map((s, i) => (
           <div key={s.key} style={{ display: "flex", flex: 1, alignItems: "center", gap: "0.5rem" }}>
@@ -182,11 +182,11 @@ export default function JoinApplyForm({ job }: Props) {
 
       <div className="join-actions">
         {step > 0 && (
-          <button type="button" className="btn btn-secondary" onClick={() => { setError(null); setStep((s) => s - 1); }} disabled={busy} style={{ color: "var(--navy)", borderColor: "var(--gray-200)", background: "var(--white)" }}>
+          <button type="button" className="btn join-back-btn" onClick={() => { setError(null); setStep((s) => s - 1); }} disabled={busy}>
             Back
           </button>
         )}
-        <button type="button" className="btn btn-blue form-submit-btn" onClick={next} disabled={busy} style={{ marginTop: 0, flex: 1 }}>
+        <button type="button" className="btn btn-blue join-continue-btn" onClick={next} disabled={busy}>
           {busy ? "Submitting…" : step === steps.length - 1 ? "Submit application" : "Continue"}
         </button>
       </div>
@@ -227,7 +227,7 @@ function Field({
 }) {
   if (field.type === "checkbox") {
     return (
-      <label className="checkbox-item" style={{ alignItems: "flex-start", marginTop: "0.75rem" }}>
+      <label className="checkbox-item join-consent">
         <input
           type="checkbox"
           checked={consent}
@@ -241,7 +241,7 @@ function Field({
 
   if (field.type === "radio") {
     return (
-      <fieldset className="form-group" style={{ border: "none", padding: 0 }}>
+      <fieldset className="join-fieldset">
         <legend>
           {field.label}
           {field.required ? " *" : ""}
@@ -267,7 +267,7 @@ function Field({
 
   if (field.type === "checkbox-group") {
     return (
-      <fieldset className="form-group" style={{ border: "none", padding: 0 }}>
+      <fieldset className="join-fieldset">
         <legend>{field.label}</legend>
         <div className="services-checkbox-grid">
           {(field.options || []).map((opt) => (

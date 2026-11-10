@@ -28,7 +28,7 @@ export default async function JoinJobPage({
           <p>{job.shortDescription}</p>
         </div>
       </section>
-      <section className="work-forms">
+      <section className="work-forms join-apply-page">
         <div className="container" style={{ maxWidth: "720px" }}>
           <Link href="/join" className="join-back">
             ← All openings
