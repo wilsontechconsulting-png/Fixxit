@@ -11,9 +11,9 @@ import {
 } from "@/lib/join-trades";
 import type { Job } from "@/lib/jobs";
 
-type Props = { job: Job };
+type Props = { job: Job; applicantState?: string };
 
-export default function JoinApplyForm({ job }: Props) {
+export default function JoinApplyForm({ job, applicantState }: Props) {
   const router = useRouter();
   const trade = job.trade;
   const config = TRADES[trade];
@@ -113,11 +113,16 @@ export default function JoinApplyForm({ job }: Props) {
         }
       }
 
+      if (applicantState) {
+        tradeAnswers.state = applicantState;
+      }
+
       const form = new FormData();
       form.set("trade", trade);
       form.set("role", values.role || "");
       form.set("job_id", job.id);
       form.set("job_title", job.title);
+      if (applicantState) form.set("state", applicantState);
       form.set("trade_answers", JSON.stringify(tradeAnswers));
       for (const field of COMMON_FIELDS) {
         form.set(field.name, values[field.name] || "");

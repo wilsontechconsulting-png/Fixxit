@@ -1,13 +1,21 @@
 import Link from "next/link";
-import { TRADE_ICONS, TRADE_LABELS, type Job } from "@/lib/jobs";
+import { TRADE_ICONS, TRADE_LABELS, formatJobLocation, type Job } from "@/lib/jobs";
 
-export default function JoinJobCard({ job }: { job: Job }) {
+export default function JoinJobCard({
+  job,
+  href,
+  showLocation = true,
+}: {
+  job: Job;
+  href?: string;
+  showLocation?: boolean;
+}) {
   return (
-    <Link href={`/join/${job.id}`} className="join-job-card">
+    <Link href={href ?? `/join/${job.id}`} className="join-job-card">
       <div className="join-job-meta">
         <span aria-hidden>{TRADE_ICONS[job.trade]}</span>
         <span>{TRADE_LABELS[job.trade]}</span>
-        <span>{job.location}</span>
+        {showLocation && <span>{formatJobLocation(job)}</span>}
       </div>
       <h3>{job.title}</h3>
       <p>{job.shortDescription}</p>

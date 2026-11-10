@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import JoinJobsBoard from "@/components/JoinJobsBoard";
 import "./join.css";
 
@@ -26,7 +27,9 @@ export default function JoinPage() {
               </ul>
             </div>
           </div>
-          <JoinJobsBoard />
+          <Suspense fallback={<p className="join-empty">Loading openings…</p>}>
+            <JoinJobsBoard />
+          </Suspense>
         </div>
       </section>
     </>

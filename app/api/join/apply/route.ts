@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getRecruitingSupabase } from "@/lib/join-supabase";
 import { isApplicationRole, isTradeSlug } from "@/lib/join-trades";
-import { getJob } from "@/lib/jobs";
+import { getJob, isUsStateCode, stateName } from "@/lib/jobs";
 
 
 const ALLOWED_RESUME = new Set([
@@ -81,6 +81,13 @@ export async function POST(req: Request) {
     ).trim();
     if (licenseNumber) {
       trade_answers.license_number = licenseNumber;
+    }
+    const stateRaw = String(form.get("state") || trade_answers.state || "").trim().toUpperCase();
+    const applicantState = isUsStateCode(stateRaw) ? stateRaw : "";
+    if (applicantState) {
+      trade_answers.state = applicantState;
+    } else {
+      delete trade_answers.state;
     }
 
     const resume = form.get("resume");
@@ -174,6 +181,7 @@ export async function POST(req: Request) {
             ``,
             `Job: ${job.title}`,
             `Job ID: ${job.id}`,
+            `State: ${applicantState ? stateName(applicantState) : "—"}`,
             `Applying for: ${roleLabel}`,
             `Role: ${roleTag}`,
             `Florida license number: ${licenseNumber || "—"}`,

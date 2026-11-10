@@ -1,3 +1,4 @@
+import HiringBanner from '@/components/HiringBanner'
 import Hero from '@/components/Hero-REWRITE'
 import Services from '@/components/Services-REWRITE'
 import ChooseYourPath from '@/components/ChooseYourPath'
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <ScrollAnimations />
+      <HiringBanner />
       <Hero />
       <Services />
       <ChooseYourPath />

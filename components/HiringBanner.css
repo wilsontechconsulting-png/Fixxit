@@ -1,0 +1,68 @@
+.hiring-banner {
+  display: block;
+  background: var(--navy);
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 3px solid var(--yellow);
+  padding: 0.6rem var(--container-padding);
+}
+
+.hiring-banner:hover,
+.hiring-banner:focus-visible {
+  color: var(--white);
+  background: #15263f;
+}
+
+.hiring-banner:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: -2px;
+}
+
+.hiring-banner-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.85rem;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hiring-banner-copy {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hiring-banner-cta {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+
+.hiring-banner:hover .hiring-banner-cta,
+.hiring-banner:focus-visible .hiring-banner-cta {
+  color: #ffe36a;
+}
+
+@media (max-width: 560px) {
+  .hiring-banner {
+    padding: 0.7rem 1rem;
+  }
+
+  .hiring-banner-inner {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .hiring-banner-copy,
+  .hiring-banner-cta {
+    font-size: 0.8125rem;
+  }
+}
