@@ -12,6 +12,11 @@ export type ChatEmergency = {
   phone: string
   note: string | null
   photo_triage: PhotoAnalysis | PhotoAnalysis[] | null
+  first_name?: string
+  last_name?: string
+  call_status?: string | null
+  call_control_ids?: Record<string, string>
+  already_processed?: boolean
 }
 
 export function validateEmergencyInput(input: {
@@ -67,4 +72,60 @@ export async function createEmergency(input: {
   })
   if (error || !data) throw error || new Error('Could not save the emergency request')
   return rowToEmergency(data as Record<string, unknown>)
+}
+
+export async function getEmergency(emergencyId: string): Promise<ChatEmergency | null> {
+  const supabase = getChatSupabase()
+  if (!supabase || !emergencyId) return null
+  const { data, error } = await supabase.rpc('get_chat_emergency', { p_emergency_id: emergencyId })
+  if (error || !data) return null
+  const row = data as Record<string, unknown>
+  return {
+    ...rowToEmergency(row),
+    first_name: row.first_name ? String(row.first_name) : undefined,
+    last_name: row.last_name ? String(row.last_name) : undefined,
+    call_status: (row.call_status as string) ?? null,
+    call_control_ids: (row.call_control_ids as Record<string, string>) || {},
+  }
+}
+
+export async function leadHasRecentEmergencyCall(leadId: string, windowMinutes = 10): Promise<boolean> {
+  const supabase = getChatSupabase()
+  if (!supabase || !leadId) return false
+  const { data, error } = await supabase.rpc('lead_has_recent_emergency_call', {
+    p_lead_id: leadId,
+    p_window_minutes: windowMinutes,
+  })
+  if (error) {
+    console.error('recent emergency call check failed')
+    return false
+  }
+  return Boolean(data)
+}
+
+export async function updateEmergencyCall(input: {
+  emergencyId: string
+  callStatus?: string
+  callControlIds?: Record<string, string>
+  eventId?: string
+}): Promise<ChatEmergency | null> {
+  const supabase = getChatSupabase()
+  if (!supabase) return null
+  const { data, error } = await supabase.rpc('update_chat_emergency_call', {
+    p_emergency_id: input.emergencyId,
+    p_call_status: input.callStatus ?? null,
+    p_call_control_ids: input.callControlIds ?? null,
+    p_event_id: input.eventId ?? null,
+  })
+  if (error || !data) {
+    if (error) console.error('update emergency call failed')
+    return null
+  }
+  const row = data as Record<string, unknown>
+  return {
+    ...rowToEmergency(row),
+    call_status: (row.call_status as string) ?? null,
+    call_control_ids: (row.call_control_ids as Record<string, string>) || {},
+    already_processed: Boolean(row.already_processed),
+  }
 }

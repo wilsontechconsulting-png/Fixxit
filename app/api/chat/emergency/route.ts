@@ -45,8 +45,8 @@ export async function POST(req: NextRequest) {
 
     notifyEmergency({ lead, emergency }).catch(() => {})
 
-    // Telnyx calling is not enabled until credentials are set and Jed approves.
     if (isTelnyxConfigured()) {
+      // At most one Telnyx callback per lead every 10 minutes. The email alert still goes out.
       startEmergencyCallback(lead, {
         id: emergency.id,
         type: emergency.emergency_type,

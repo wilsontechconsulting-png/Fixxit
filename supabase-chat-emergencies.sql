@@ -19,3 +19,8 @@ CREATE INDEX IF NOT EXISTS chat_emergencies_created_at_idx ON public.chat_emerge
 CREATE INDEX IF NOT EXISTS chat_emergencies_session_id_idx ON public.chat_emergencies (session_id);
 
 ALTER TABLE public.chat_emergencies ENABLE ROW LEVEL SECURITY;
+
+
+-- Applied 2026-11-17 as migration chat_emergencies_call_status.
+-- Adds call_status, call_control_ids, call_event_ids, and RPCs
+-- get_chat_emergency, lead_has_recent_emergency_call, and update_chat_emergency_call.
