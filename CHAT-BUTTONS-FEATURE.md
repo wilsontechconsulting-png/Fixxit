@@ -13,7 +13,7 @@ The chat bot can now trigger contextual action buttons based on user intent.
 ## 📋 Available Buttons:
 
 ### **1. 📞 Call Now**
-- **Opens:** Phone dialer with 888-229-5696
+- **Opens:** Phone dialer with 480-795-5295
 - **Triggers when:** User expresses urgency
   - "ASAP"
   - "emergency"
@@ -49,7 +49,7 @@ The chat bot can now trigger contextual action buttons based on user intent.
 ```
 Your message text here...
 
-[BUTTONS:[{"text":"📞 Call Now","action":"call","value":"tel:888-229-5696"},{"text":"Get a Quote","action":"link","value":"https://fixxitpros.com/#quote"}]]
+[BUTTONS:[{"text":"📞 Call Now","action":"call","value":"tel:+14807955295"},{"text":"Get a Quote","action":"link","value":"https://fixxitpros.com/#quote"}]]
 ```
 
 **Widget parses and renders:**
@@ -67,7 +67,7 @@ Your message text here...
 {
   "text": "📞 Call Now",
   "action": "call",
-  "value": "tel:888-229-5696"
+  "value": "tel:+14807955295"
 }
 ```
 Opens phone dialer on mobile, or tel: link on desktop.
@@ -124,7 +124,7 @@ You can suggest action buttons by including this special format at the END of yo
 [BUTTONS:[{...}]]
 
 Button types:
-- call: Opens phone dialer (value must be "tel:888-229-5696")
+- call: Opens phone dialer (value must be "tel:+14807955295")
 - link: Opens URL in new tab
 - form: Navigates to form page
 

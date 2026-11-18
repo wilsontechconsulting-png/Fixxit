@@ -5,7 +5,7 @@ import ServiceFAQ from '@/components/ServiceFAQ'
 
 export const metadata: Metadata = {
   title: 'Roofing Services — Repair, Replacement & Inspections | Fixxit Pros',
-  description: 'Missing shingles, leaks, storm damage — licensed roofers handle it all. 1-year workmanship warranty, upfront pricing, fast response. Call 888-229-5696.',
+  description: 'Missing shingles, leaks, storm damage — licensed roofers handle it all. 1-year workmanship warranty, upfront pricing, fast response. Call 480-795-5295.',
 }
 
 const services = [
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     question: 'My roof is leaking right now — what should I do?',
-    answer: "Call us immediately at 888-229-5696. For active leaks, we prioritize emergency response. In the meantime, move valuables away from the affected area and place buckets if needed. We can often get a tarp installed same-day to stop further water intrusion while we plan the full repair.",
+    answer: "Call us immediately at 480-795-5295. For active leaks, we prioritize emergency response. In the meantime, move valuables away from the affected area and place buckets if needed. We can often get a tarp installed same-day to stop further water intrusion while we plan the full repair.",
   },
   {
     question: 'How long does a full roof replacement take?',
@@ -86,7 +86,7 @@ export default function RoofingPage() {
               Small roof problems become expensive water damage fast. Our licensed roofers respond quickly, diagnose honestly, and fix it right — with a 1-year workmanship warranty on every job.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
@@ -119,7 +119,7 @@ export default function RoofingPage() {
           </div>
           <div style={{ textAlign: 'center' }}>
             <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Active leak or storm damage? Call directly for fastest response.</p>
-            <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
+            <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call Now — 480-795-5295</a>
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@ export default function RoofingPage() {
               ))}
             </ul>
             <div style={{ marginTop: '2.5rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call Now — 480-795-5295</a>
               <Link href="/questions" className="btn btn-blue btn-lg">Get a Free Quote</Link>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function RoofingPage() {
                 <div className="step-number">1</div>
                 <div className="step-content">
                   <h3>Describe the Problem</h3>
-                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the form. Tell us what you&apos;re seeing — leaks, damage, age concerns, or just need an inspection. Emergency? Call directly.</p>
+                  <p>Call <a href="tel:+14807955295" style={{ color: 'var(--blue)', fontWeight: 600 }}>480-795-5295</a> or fill out the form. Tell us what you&apos;re seeing — leaks, damage, age concerns, or just need an inspection. Emergency? Call directly.</p>
                 </div>
               </div>
               <div className="step-item">
@@ -253,7 +253,7 @@ export default function RoofingPage() {
           <ServiceFAQ faqs={faqs} />
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
             <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Leaking right now? Call us immediately.</p>
-            <a href="tel:8882295696" className="btn btn-blue">📞 Call 888-229-5696</a>
+            <a href="tel:+14807955295" className="btn btn-blue">📞 Call 480-795-5295</a>
           </div>
         </div>
       </section>
@@ -269,7 +269,7 @@ export default function RoofingPage() {
               The next rain is coming. Get your roof assessed now before the damage spreads.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', marginTop: '1.5rem' }}>

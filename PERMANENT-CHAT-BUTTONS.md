@@ -41,7 +41,7 @@ Located **above the text input**, visible at all times:
 ## 🔘 Two Permanent Buttons:
 
 ### **1. 📞 Call Now**
-- **Action:** Opens phone dialer with `tel:888-229-5696`
+- **Action:** Opens phone dialer with `tel:+14807955295`
 - **On mobile:** Directly calls
 - **On desktop:** Opens tel: link (Skype, etc.)
 - **Style:** Blue outline, fills blue on hover
@@ -62,7 +62,7 @@ Located **above the text input**, visible at all times:
 <div className="chat-quick-actions">
   <button 
     className="quick-action-btn quick-action-call"
-    onClick={() => window.location.href = 'tel:888-229-5696'}
+    onClick={() => window.location.href = 'tel:+14807955295'}
   >
     <span className="quick-action-icon">📞</span>
     <span className="quick-action-text">Call Now</span>
@@ -143,7 +143,7 @@ You can suggest action buttons by including this format...
 **After:**
 ```
 The chat has permanent action buttons:
-- 📞 Call Now (888-229-5696)
+- 📞 Call Now (480-795-5295)
 - 📝 Get Quote (opens quote form)
 
 You can mention these options in your responses, but do NOT 

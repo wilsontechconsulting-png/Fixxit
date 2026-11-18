@@ -5,7 +5,7 @@ import ServiceFAQ from '@/components/ServiceFAQ'
 
 export const metadata: Metadata = {
   title: 'Landscaping Services — Design, Installation & Hardscaping | Fixxit Pros',
-  description: 'Professional landscaping services including design, planting, hardscaping, irrigation, and outdoor transformations. Upfront pricing, licensed pros. Call 888-229-5696.',
+  description: 'Professional landscaping services including design, planting, hardscaping, irrigation, and outdoor transformations. Upfront pricing, licensed pros. Call 480-795-5295.',
 }
 
 const services = [
@@ -86,7 +86,7 @@ export default function LandscapingPage() {
               From a simple planting bed to a complete outdoor transformation — our landscaping pros design, plan, and install projects that look great and last. Upfront pricing, no surprises.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
@@ -144,7 +144,7 @@ export default function LandscapingPage() {
               ))}
             </ul>
             <div style={{ marginTop: '2.5rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call Now — 480-795-5295</a>
               <Link href="/questions" className="btn btn-blue btn-lg">Get a Free Quote</Link>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function LandscapingPage() {
                 <div className="step-number">1</div>
                 <div className="step-content">
                   <h3>Tell Us Your Vision</h3>
-                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the form. Describe what you&apos;re hoping to achieve — or just tell us what&apos;s wrong with the yard and we&apos;ll help figure out the solution.</p>
+                  <p>Call <a href="tel:+14807955295" style={{ color: 'var(--blue)', fontWeight: 600 }}>480-795-5295</a> or fill out the form. Describe what you&apos;re hoping to achieve — or just tell us what&apos;s wrong with the yard and we&apos;ll help figure out the solution.</p>
                 </div>
               </div>
               <div className="step-item">
@@ -253,7 +253,7 @@ export default function LandscapingPage() {
           <ServiceFAQ faqs={faqs} />
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
             <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Have a project idea? Let&apos;s talk through it.</p>
-            <a href="tel:8882295696" className="btn btn-blue">📞 Call 888-229-5696</a>
+            <a href="tel:+14807955295" className="btn btn-blue">📞 Call 480-795-5295</a>
           </div>
         </div>
       </section>
@@ -269,7 +269,7 @@ export default function LandscapingPage() {
               Get a free quote today. Landscaping projects book fast — especially in spring and fall.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', marginTop: '1.5rem' }}>

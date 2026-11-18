@@ -21,7 +21,7 @@ export default function Hero() {
             and a real human you can actually reach — within 2 hours.
           </p>
           <div className="hero-buttons">
-            <a href="tel:8882295696" className="btn btn-primary btn-lg">
+            <a href="tel:+14807955295" className="btn btn-primary btn-lg">
               📞 Talk to Someone Now
             </a>
             <button onClick={openChat} className="btn btn-secondary btn-lg">

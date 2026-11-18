@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
         <p>If you have questions about this Privacy Policy, contact us at:</p>
         <ul>
           <li>Email: <a href="mailto:info@fixxitpros.com">info@fixxitpros.com</a></li>
-          <li>Phone: <a href="tel:8882295696">888-229-5696</a></li>
+          <li>Phone: <a href="tel:+14807955295">480-795-5295</a></li>
         </ul>
       </div>
     </div>

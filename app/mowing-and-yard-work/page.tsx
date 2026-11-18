@@ -6,7 +6,7 @@ import ServiceFAQ from '@/components/ServiceFAQ'
 
 export const metadata: Metadata = {
   title: 'Mowing & Yard Work — Lawn Care Professionals | Fixxit Pros',
-  description: 'Reliable, insured lawn care professionals for mowing, edging, cleanup, aeration, and seasonal maintenance. Get a free quote today. Call 888-229-5696.',
+  description: 'Reliable, insured lawn care professionals for mowing, edging, cleanup, aeration, and seasonal maintenance. Get a free quote today. Call 480-795-5295.',
 }
 
 const services = [
@@ -86,7 +86,7 @@ export default function MowingPage() {
               Reliable, insured yard professionals who actually show up when they say they will, do the work right, and leave your property looking exactly how you wanted.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
@@ -158,7 +158,7 @@ export default function MowingPage() {
               ))}
             </ul>
             <div style={{ marginTop: '2.5rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call Now — 480-795-5295</a>
               <Link href="/questions" className="btn btn-blue btn-lg">Get a Free Quote</Link>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function MowingPage() {
                 <div className="step-number">1</div>
                 <div className="step-content">
                   <h3>Tell Us About Your Yard</h3>
-                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the form. Tell us your lot size, what you need done, and how often. We&apos;ll get you a quote fast.</p>
+                  <p>Call <a href="tel:+14807955295" style={{ color: 'var(--blue)', fontWeight: 600 }}>480-795-5295</a> or fill out the form. Tell us your lot size, what you need done, and how often. We&apos;ll get you a quote fast.</p>
                 </div>
               </div>
               <div className="step-item">
@@ -267,7 +267,7 @@ export default function MowingPage() {
           <ServiceFAQ faqs={faqs} />
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
             <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Ready to stop doing this yourself?</p>
-            <a href="tel:8882295696" className="btn btn-blue">📞 Call 888-229-5696</a>
+            <a href="tel:+14807955295" className="btn btn-blue">📞 Call 480-795-5295</a>
           </div>
         </div>
       </section>
@@ -283,7 +283,7 @@ export default function MowingPage() {
               Stop putting it off. Get a free quote today and have an insured professional handle it this week.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', marginTop: '1.5rem' }}>

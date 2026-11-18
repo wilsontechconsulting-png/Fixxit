@@ -63,6 +63,6 @@ export async function POST(req: NextRequest) {
     return Response.json({ ok: true, emergency_id: emergency.id })
   } catch (error) {
     console.error('Chat emergency error')
-    return Response.json({ error: 'Unable to send your emergency request. Please call 888-229-5696.' }, { status: 500 })
+    return Response.json({ error: 'Unable to send your emergency request. Please call 480-795-5295.' }, { status: 500 })
   }
 }

@@ -23,8 +23,8 @@ export default function HowToReachUs() {
               Talk to a real person right now. Best for urgent issues or when you want answers
               before committing to anything.
             </p>
-            <a href="tel:8882295696" className="btn btn-primary">
-              888-229-5696
+            <a href="tel:+14807955295" className="btn btn-primary">
+              480-795-5295
             </a>
           </div>
 

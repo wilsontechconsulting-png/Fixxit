@@ -44,7 +44,7 @@ export default function Footer() {
             <h4>Contact</h4>
             <div className="footer-contact-item">
               <span className="icon">📞</span>
-              <a href="tel:8882295696">888-229-5696</a>
+              <a href="tel:+14807955295">480-795-5295</a>
             </div>
             <div className="footer-contact-item">
               <span className="icon">✉️</span>

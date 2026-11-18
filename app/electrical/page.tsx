@@ -5,7 +5,7 @@ import ServiceFAQ from '@/components/ServiceFAQ'
 
 export const metadata: Metadata = {
   title: 'Electrical Services — Panel Upgrades, Wiring & Outlet Repair | Fixxit Pros',
-  description: 'Licensed electricians for panel upgrades, outlet repair, flickering lights, and code-compliant installations. Upfront pricing, 1-year warranty. Call 888-229-5696.',
+  description: 'Licensed electricians for panel upgrades, outlet repair, flickering lights, and code-compliant installations. Upfront pricing, 1-year warranty. Call 480-795-5295.',
 }
 
 const services = [
@@ -86,7 +86,7 @@ export default function ElectricalPage() {
               Electrical issues aren&apos;t just annoying — they can be dangerous. Our licensed electricians diagnose the root cause, explain it clearly, and fix it to code — with an upfront price and a 1-year warranty.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
@@ -119,7 +119,7 @@ export default function ElectricalPage() {
           </div>
           <div style={{ textAlign: 'center' }}>
             <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Electrical emergency? Burning smell or no power? Call now.</p>
-            <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
+            <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call Now — 480-795-5295</a>
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@ export default function ElectricalPage() {
               ))}
             </ul>
             <div style={{ marginTop: '2.5rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call Now — 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call Now — 480-795-5295</a>
               <Link href="/questions" className="btn btn-blue btn-lg">Get a Free Quote</Link>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function ElectricalPage() {
                 <div className="step-number">1</div>
                 <div className="step-content">
                   <h3>Tell Us What&apos;s Happening</h3>
-                  <p>Call <a href="tel:8882295696" style={{ color: 'var(--blue)', fontWeight: 600 }}>888-229-5696</a> or fill out the form. Describe the electrical issue — flickering, tripping, no power, or an upgrade you need. We&apos;ll get you scheduled fast.</p>
+                  <p>Call <a href="tel:+14807955295" style={{ color: 'var(--blue)', fontWeight: 600 }}>480-795-5295</a> or fill out the form. Describe the electrical issue — flickering, tripping, no power, or an upgrade you need. We&apos;ll get you scheduled fast.</p>
                 </div>
               </div>
               <div className="step-item">
@@ -253,7 +253,7 @@ export default function ElectricalPage() {
           <ServiceFAQ faqs={faqs} />
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
             <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>Electrical emergency? Don&apos;t wait — call us now.</p>
-            <a href="tel:8882295696" className="btn btn-blue">📞 Call 888-229-5696</a>
+            <a href="tel:+14807955295" className="btn btn-blue">📞 Call 480-795-5295</a>
           </div>
         </div>
       </section>
@@ -269,7 +269,7 @@ export default function ElectricalPage() {
               Get a licensed electrician out today. Your home&apos;s safety — and your peace of mind — are worth it.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-              <a href="tel:8882295696" className="btn btn-primary btn-lg">📞 Call 888-229-5696</a>
+              <a href="tel:+14807955295" className="btn btn-primary btn-lg">📞 Call 480-795-5295</a>
               <Link href="/questions" className="btn btn-secondary btn-lg">Get a Free Quote →</Link>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', marginTop: '1.5rem' }}>

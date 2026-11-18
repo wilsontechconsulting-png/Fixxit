@@ -269,7 +269,7 @@ export default function ChatWidget() {
       } else {
         setMessages(prev => [...prev, {
           role: 'assistant',
-          content: 'Sorry, I\'m having trouble connecting. Please call us at 888-229-5696.',
+          content: 'Sorry, I\'m having trouble connecting. Please call us at 480-795-5295.',
         }])
       }
     } finally {
@@ -408,7 +408,7 @@ export default function ChatWidget() {
         return
       }
       if (!res.ok) {
-        setEmergencyError(typeof data.error === 'string' ? data.error : 'Unable to send your emergency request. Please call 888-229-5696.')
+        setEmergencyError(typeof data.error === 'string' ? data.error : 'Unable to send your emergency request. Please call 480-795-5295.')
         return
       }
       const selected = emergencyTypeById(emergencyType)
@@ -418,12 +418,12 @@ export default function ChatWidget() {
         { role: 'user', content: `🚨 Emergency: ${label}` },
         {
           role: 'assistant',
-          content: 'Your emergency request was sent to the Fixxit team. You can also call us now at [888-229-5696](tel:888-229-5696).',
+          content: 'Your emergency request was sent to the Fixxit team. You can also call us now at [480-795-5295](tel:+14807955295).',
         },
       ])
       setEmergencyStep('done')
     } catch {
-      setEmergencyError('Unable to send your emergency request. Please call 888-229-5696.')
+      setEmergencyError('Unable to send your emergency request. Please call 480-795-5295.')
     } finally {
       setEmergencyBusy(false)
     }
@@ -601,8 +601,8 @@ export default function ChatWidget() {
                   <p className="chat-emergency-tip">
                     Your emergency request was sent to the Fixxit team. You can also call us now.
                   </p>
-                  <a className="chat-emergency-call" href="tel:888-229-5696">
-                    📞 Call Now 888-229-5696
+                  <a className="chat-emergency-call" href="tel:+14807955295">
+                    📞 Call Now 480-795-5295
                   </a>
                   <button type="button" className="chat-emergency-back" onClick={() => setEmergencyStep('closed')}>
                     ← Back to chat
@@ -653,7 +653,7 @@ export default function ChatWidget() {
                 </button>
                 <button
                   className="quick-action-btn quick-action-call"
-                  onClick={() => window.location.href = 'tel:888-229-5696'}
+                  onClick={() => window.location.href = 'tel:+14807955295'}
                   aria-label="Call now"
                 >
                   <span className="quick-action-icon">📞</span>

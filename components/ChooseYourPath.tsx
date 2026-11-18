@@ -23,8 +23,8 @@ export default function ChooseYourPath() {
               Call us and a real person picks up. Describe what broke, we&apos;ll tell you
               exactly what it&apos;ll cost and who we&apos;re sending — before we send anyone.
             </p>
-            <a href="tel:8882295696" className="btn btn-primary btn-lg">
-              Call 888-229-5696
+            <a href="tel:+14807955295" className="btn btn-primary btn-lg">
+              Call 480-795-5295
             </a>
             <div className="path-card-note">Mon–Fri 8am–7pm &middot; Sat 9am–5pm CT</div>
           </div>
