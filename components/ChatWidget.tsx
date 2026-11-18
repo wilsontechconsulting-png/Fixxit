@@ -106,7 +106,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hi! I\'m the Fixxit assistant. What home service can I help you with today? 🏠',
+      content: 'Hi! I\'m the Fixxit assistant. What home service can I help you with today, or add photos of what your issues are? 🏠',
     },
   ])
   const [input, setInput] = useState('')

@@ -460,18 +460,22 @@ h1, h2, h3, h4, h5, h6 {
 .questions-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.8); max-width: 480px; margin-inline: auto; }
 
 /* CHAT WIDGET */
-.chat-widget { position: fixed; bottom: 5rem; right: 1.5rem; z-index: 1600; }
+.chat-widget { --chat-toggle-offset: 5rem; --chat-panel-gap: 70px; --chat-top-gap: 1rem; position: fixed; bottom: var(--chat-toggle-offset); right: 1.5rem; z-index: 1600; }
+body:has(.cookie-banner.visible) .chat-widget { --chat-toggle-offset: 9rem; }
+@media (max-width: 639px) {
+  body:has(.cookie-banner.visible) .chat-widget { --chat-toggle-offset: 12rem; }
+}
 .chat-toggle-btn { width: 56px; height: 56px; border-radius: var(--radius-full); background: var(--blue); color: var(--white); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 20px rgba(0,102,204,0.5); transition: all var(--transition-base); }
 .chat-toggle-btn:hover { background: var(--blue-dark); transform: scale(1.1); }
-.chat-panel { position: absolute; bottom: 70px; right: 0; width: 360px; max-width: calc(100vw - 2rem); background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); display: flex; flex-direction: column; overflow: hidden; max-height: 500px; }
-.chat-header { background: var(--navy); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+.chat-panel { position: absolute; bottom: var(--chat-panel-gap); right: 0; width: 360px; max-width: calc(100vw - 2rem); background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); display: flex; flex-direction: column; overflow: hidden; max-height: min(500px, calc(100vh - var(--chat-toggle-offset) - var(--chat-panel-gap) - var(--chat-top-gap))); max-height: min(500px, calc(100dvh - var(--chat-toggle-offset) - var(--chat-panel-gap) - var(--chat-top-gap))); }
+.chat-header { background: var(--navy); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .chat-header-info { display: flex; align-items: center; gap: 0.75rem; }
 .chat-avatar { width: 36px; height: 36px; background: var(--yellow); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
 .chat-header-text strong { display: block; font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; color: var(--white); }
 .chat-header-text span { font-size: 0.75rem; color: rgba(255,255,255,0.65); }
 .chat-close-btn { background: none; border: none; color: rgba(255,255,255,0.7); cursor: pointer; font-size: 1.25rem; padding: 0.25rem; transition: color var(--transition-fast); }
 .chat-close-btn:hover { color: var(--white); }
-.chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; min-height: 280px; }
+.chat-messages { flex: 1 1 auto; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; min-height: 0; }
 .chat-msg { max-width: 85%; padding: 0.625rem 0.875rem; border-radius: 12px; font-size: 0.875rem; line-height: 1.5; }
 .chat-msg-bot { background: var(--gray-100); color: var(--gray-800); align-self: flex-start; border-bottom-left-radius: 4px; }
 .chat-msg-user { background: var(--blue); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
@@ -486,7 +490,7 @@ h1, h2, h3, h4, h5, h6 {
 .chat-md a { color: var(--blue); text-decoration: underline; word-break: break-word; }
 .chat-md a:hover { color: var(--blue-dark); }
 
-.chat-gate { padding: 1rem 1rem 1.1rem; overflow-y: auto; }
+.chat-gate { flex: 1 1 auto; min-height: 0; padding: 1rem 1rem 1.1rem; overflow-y: auto; }
 .chat-gate-intro { font-size: 0.875rem; line-height: 1.55; color: var(--gray-800); margin: 0 0 0.9rem; }
 .chat-gate-form { display: flex; flex-direction: column; gap: 0.65rem; }
 .chat-gate-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
@@ -506,7 +510,7 @@ h1, h2, h3, h4, h5, h6 {
 .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
 .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
 @keyframes typing-bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
-.chat-input-area { padding: 0.875rem; border-top: 1px solid var(--gray-200); display: flex; gap: 0.5rem; }
+.chat-input-area { padding: 0.875rem; border-top: 1px solid var(--gray-200); display: flex; gap: 0.5rem; flex-shrink: 0; }
 .chat-input { flex: 1; padding: 0.625rem 0.875rem; border: 2px solid var(--gray-200); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.875rem; resize: none; transition: border-color var(--transition-fast); outline: none; }
 .chat-input:focus { border-color: var(--blue); }
 .chat-send-btn { width: 40px; height: 40px; background: var(--blue); color: var(--white); border: none; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: background var(--transition-fast); flex-shrink: 0; }
@@ -514,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
 .chat-send-btn:disabled { background: var(--gray-400); cursor: not-allowed; }
 
 /* CHAT QUICK ACTION BUTTONS */
-.chat-quick-actions { display: flex; gap: 0.625rem; padding: 0.75rem 0.875rem; border-top: 1px solid var(--gray-200); background: var(--gray-50); }
+.chat-quick-actions { display: flex; gap: 0.625rem; padding: 0.75rem 0.875rem; border-top: 1px solid var(--gray-200); background: var(--gray-50); flex-shrink: 0; }
 .quick-action-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.375rem; padding: 0.75rem 0.875rem; background: var(--white); border: 2px solid var(--blue); color: var(--blue); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.8125rem; font-weight: 700; cursor: pointer; transition: all var(--transition-fast); }
 .quick-action-btn:hover { background: var(--blue); color: var(--white); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,102,255,0.2); }
 .quick-action-btn:active { transform: translateY(0); }
