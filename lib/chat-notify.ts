@@ -1,6 +1,8 @@
 import { Resend } from 'resend'
 import { getChatSupabase } from '@/lib/join-supabase'
 import type { ChatLead, PhotoAnalysis } from '@/lib/chat-leads'
+import type { ChatEmergency } from '@/lib/chat-emergencies'
+import { emergencyLabel } from '@/lib/emergency-types'
 
 /** Map a trade category to a notification inbox. Empty values fall back to NOTIFY_EMAIL. */
 export const TRADE_RECIPIENTS: Record<string, string> = {
@@ -154,3 +156,59 @@ export async function notifyChatLead(opts: {
 }
 
 export { PHOTO_BUCKET }
+
+
+function triageLines(analysis: ChatLead['analysis'] | ChatEmergency['photo_triage']): string[] {
+  const items = Array.isArray(analysis) ? analysis : analysis ? [analysis] : []
+  if (!items.length) return ['Photo triage: none']
+  const lines = ['Photo triage:']
+  items.forEach((item, i) => {
+    const n = items.length > 1 ? ` ${i + 1}` : ''
+    lines.push(
+      `  Review${n}: ${item.description || '—'}`,
+      `  Trade: ${item.trade || '—'}`,
+      `  Urgency: ${item.urgency || '—'}`,
+      `  Confidence: ${item.confidence || '—'}`,
+      `  Safety note: ${item.safety_note || 'none'}`,
+    )
+  })
+  return lines
+}
+
+export async function notifyEmergency(opts: { lead: ChatLead; emergency: ChatEmergency }) {
+  const to = process.env.NOTIFY_EMAIL?.trim()
+  const from = process.env.RESEND_FROM?.trim()
+  const apiKey = process.env.RESEND_API_KEY?.trim()
+  if (!to || !from || !apiKey) return
+
+  const name = `${opts.lead.first_name} ${opts.lead.last_name}`.trim()
+  const typeLabel = emergencyLabel(opts.emergency.emergency_type)
+  const subject = `🚨 EMERGENCY: ${typeLabel} – ${name}`
+  const triage = opts.emergency.photo_triage ?? opts.lead.analysis
+  const lines = [
+    'An emergency request was submitted in the FIXXIT Pros chat.',
+    '',
+    `Name: ${name}`,
+    `Phone: ${opts.emergency.phone}`,
+    `Email: ${opts.lead.email}`,
+    `Type: ${typeLabel}`,
+    `Note: ${opts.emergency.note || '—'}`,
+    `Emergency ID: ${opts.emergency.id}`,
+    `Lead ID: ${opts.lead.id}`,
+    `Session: ${opts.lead.session_id}`,
+    '',
+    ...triageLines(triage),
+  ]
+
+  try {
+    const resend = new Resend(apiKey)
+    await resend.emails.send({
+      from,
+      to: [to],
+      subject,
+      text: lines.join('\n'),
+    })
+  } catch (err) {
+    console.error('emergency notify email failed')
+  }
+}

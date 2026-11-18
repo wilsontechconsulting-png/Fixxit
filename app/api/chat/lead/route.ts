@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 import { getChatSupabase } from '@/lib/join-supabase'
 import { clientIp, rateLimit, rateLimitResponse } from '@/lib/rate-limit'
-import { createLead, getLeadBySession, validateLeadInput } from '@/lib/chat-leads'
+import { createLead, getLeadBySession, isLead, requireLead, validateLeadInput } from '@/lib/chat-leads'
 import { notifyChatLead } from '@/lib/chat-notify'
 
 export async function POST(req: NextRequest) {
@@ -50,3 +50,20 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: 'Unable to start chat. Please try again.' }, { status: 500 })
   }
 }
+
+export async function GET(req: NextRequest) {
+  try {
+    if (!rateLimit(`lead-get:${clientIp(req)}`, 40, 10 * 60 * 1000)) {
+      return rateLimitResponse()
+    }
+    const session_id = req.nextUrl.searchParams.get('session_id')
+    const lead = await requireLead(session_id)
+    if (!isLead(lead)) {
+      return Response.json({ error: lead.error }, { status: lead.status })
+    }
+    return Response.json({ phone: lead.phone })
+  } catch {
+    return Response.json({ error: 'Unable to load your contact details.' }, { status: 500 })
+  }
+}
+

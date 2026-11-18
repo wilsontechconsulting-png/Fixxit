@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, type ReactNode } from 'react'
 import Markdown, { defaultUrlTransform } from 'react-markdown'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
+import { EMERGENCY_TYPES, GAS_FIRE_WARNING, emergencyTypeById } from '@/lib/emergency-types'
 
 function safeUrl(url: string) {
   const value = url.trim()
@@ -106,12 +107,18 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hi! I\'m the Fixxit assistant. What home service can I help you with today, or add photos of what your issues are? 🏠',
+      content: "Hi! I'm the Fixxit assistant 🏠\n\nTell me what's going on, or snap a photo. I can:\n\n- Read photos of damage and tell you what likely needs fixing\n- Flag emergencies like leaks, gas smells or electrical hazards\n- Get you to the right pro\n\nIf this is urgent, tap **Emergency** below. If you smell gas or see fire, leave and call 911.",
     },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [emergencyStep, setEmergencyStep] = useState<'closed' | 'types' | 'confirm' | 'done'>('closed')
+  const [emergencyType, setEmergencyType] = useState<string | null>(null)
+  const [emergencyPhone, setEmergencyPhone] = useState('')
+  const [emergencyNote, setEmergencyNote] = useState('')
+  const [emergencyError, setEmergencyError] = useState('')
+  const [emergencyBusy, setEmergencyBusy] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const sessionIdRef = useRef<string>(generateSessionId())
@@ -328,7 +335,93 @@ export default function ChatWidget() {
     }
   }
 
+
+  async function openEmergency() {
+    if (emergencyStep !== 'closed') {
+      setEmergencyStep('closed')
+      setEmergencyError('')
+      return
+    }
+    setEmergencyError('')
+    setEmergencyNote('')
+    setEmergencyType(null)
+    setEmergencyStep('types')
+    let nextPhone = phone.trim()
+    if (!nextPhone) {
+      try {
+        const res = await fetch(`/api/chat/lead?session_id=${encodeURIComponent(sessionIdRef.current)}`)
+        const data = await res.json().catch(() => ({}))
+        if (res.status === 401) {
+          lockForNewLead()
+          setEmergencyStep('closed')
+          return
+        }
+        if (typeof data.phone === 'string') nextPhone = data.phone
+      } catch {
+        // visitor can enter the number on the confirm step
+      }
+    }
+    setEmergencyPhone(nextPhone)
+  }
+
+  function chooseEmergencyType(id: string) {
+    setEmergencyType(id)
+    setEmergencyError('')
+    setEmergencyStep('confirm')
+  }
+
+  async function submitEmergency(e: React.FormEvent) {
+    e.preventDefault()
+    if (emergencyBusy || !emergencyType) return
+    setEmergencyError('')
+    if (emergencyPhone.replace(/\D/g, '').length < 10) {
+      setEmergencyError('Please enter a phone number with at least 10 digits.')
+      return
+    }
+    setEmergencyBusy(true)
+    try {
+      const res = await fetch('/api/chat/emergency', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionIdRef.current,
+          emergency_type: emergencyType,
+          phone: emergencyPhone.trim(),
+          note: emergencyNote.trim(),
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.status === 401) {
+        lockForNewLead()
+        setEmergencyStep('closed')
+        return
+      }
+      if (!res.ok) {
+        setEmergencyError(typeof data.error === 'string' ? data.error : 'Unable to send your emergency request. Please call 888-229-5696.')
+        return
+      }
+      const selected = emergencyTypeById(emergencyType)
+      const label = selected?.label || 'emergency'
+      setMessages((prev) => [
+        ...prev,
+        { role: 'user', content: `🚨 Emergency: ${label}` },
+        {
+          role: 'assistant',
+          content: 'Your emergency request was sent to the Fixxit team. You can also call us now at [888-229-5696](tel:888-229-5696).',
+        },
+      ])
+      setEmergencyStep('done')
+    } catch {
+      setEmergencyError('Unable to send your emergency request. Please call 888-229-5696.')
+    } finally {
+      setEmergencyBusy(false)
+    }
+  }
+
   const showChat = gateReady && !needsGate
+  const showEmergency = showChat && emergencyStep !== 'closed'
+  const selectedEmergency = emergencyType ? emergencyTypeById(emergencyType) : undefined
+
 
   return (
     <div className="chat-widget">
@@ -420,21 +513,116 @@ export default function ChatWidget() {
             </div>
           )}
 
+          {showChat && showEmergency && (
+            <div className="chat-emergency-panel">
+              {emergencyStep === 'types' && (
+                <>
+                  <button type="button" className="chat-emergency-back" onClick={() => setEmergencyStep('closed')}>
+                    ← Back to chat
+                  </button>
+                  <h3 className="chat-emergency-title">What type of emergency?</h3>
+                  <p className="chat-emergency-lead">Choose the closest match. If you smell gas or see fire, leave and call 911 first.</p>
+                  <div className="chat-emergency-types">
+                    {EMERGENCY_TYPES.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className={`chat-emergency-type${item.alertFirst ? ' chat-emergency-type-alert' : ''}`}
+                        onClick={() => chooseEmergencyType(item.id)}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {emergencyStep === 'confirm' && selectedEmergency && (
+                <form className="chat-emergency-form" onSubmit={submitEmergency}>
+                  <button type="button" className="chat-emergency-back" onClick={() => setEmergencyStep('types')}>
+                    ← All emergency types
+                  </button>
+                  <h3 className="chat-emergency-title">{selectedEmergency.label}</h3>
+                  {selectedEmergency.alertFirst && (
+                    <p className="chat-emergency-alert">{GAS_FIRE_WARNING}</p>
+                  )}
+                  <p className="chat-emergency-tip">{selectedEmergency.tip}</p>
+                  <label className="chat-gate-field">
+                    <span>Phone number</span>
+                    <input
+                      type="tel"
+                      name="emergency_phone"
+                      autoComplete="tel"
+                      value={emergencyPhone}
+                      onChange={(e) => setEmergencyPhone(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <label className="chat-gate-field">
+                    <span>Short note (optional)</span>
+                    <textarea
+                      className="chat-emergency-note"
+                      name="emergency_note"
+                      value={emergencyNote}
+                      onChange={(e) => setEmergencyNote(e.target.value)}
+                      maxLength={500}
+                      rows={3}
+                      placeholder="Anything the team should know…"
+                    />
+                  </label>
+                  {emergencyError && <p className="chat-gate-error">{emergencyError}</p>}
+                  <button className="chat-emergency-submit" type="submit" disabled={emergencyBusy}>
+                    {emergencyBusy ? 'Sending…' : 'Send emergency request'}
+                  </button>
+                </form>
+              )}
+
+              {emergencyStep === 'done' && (
+                <div className="chat-emergency-done">
+                  <h3 className="chat-emergency-title">Request sent</h3>
+                  <p className="chat-emergency-tip">
+                    Your emergency request was sent to the Fixxit team. You can also call us now.
+                  </p>
+                  <a className="chat-emergency-call" href="tel:888-229-5696">
+                    📞 Call Now 888-229-5696
+                  </a>
+                  <button type="button" className="chat-emergency-back" onClick={() => setEmergencyStep('closed')}>
+                    ← Back to chat
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {showChat && !showEmergency && (
+            <div className="chat-messages">
+              {messages.map((msg, i) => (
+                <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
+                  {msg.role === 'assistant' ? <AssistantMarkdown content={msg.content} /> : msg.content}
+                </div>
+              ))}
+              {loading && (
+                <div className="chat-typing">
+                  <span /><span /><span />
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          )}
+
           {showChat && (
+            <button
+              type="button"
+              className={`chat-emergency-bar${showEmergency ? ' is-open' : ''}`}
+              onClick={openEmergency}
+              aria-label="Report an emergency"
+            >
+              🚨 Emergency
+            </button>
+          )}
+
+          {showChat && !showEmergency && (
             <>
-              <div className="chat-messages">
-                {messages.map((msg, i) => (
-                  <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
-                    {msg.role === 'assistant' ? <AssistantMarkdown content={msg.content} /> : msg.content}
-                  </div>
-                ))}
-                {loading && (
-                  <div className="chat-typing">
-                    <span /><span /><span />
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
               <div className="chat-quick-actions">
                 <button
                   className="quick-action-btn quick-action-photo"
@@ -476,7 +664,7 @@ export default function ChatWidget() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKey}
-                  placeholder="Describe your home service need..."
+                  placeholder="Describe the problem or upload a photo…"
                   rows={1}
                 />
                 <button
