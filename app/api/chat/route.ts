@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     }
 
     const stream = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...messages,
@@ -57,6 +57,7 @@ export async function POST(req: NextRequest) {
       stream: true,
       max_tokens: 512,
       temperature: 0.7,
+      include_reasoning: false,
     })
 
     const encoder = new TextEncoder()
@@ -65,10 +66,13 @@ export async function POST(req: NextRequest) {
         let assistantContent = ''
         try {
           for await (const chunk of stream) {
-            const data = JSON.stringify(chunk)
-            controller.enqueue(encoder.encode(`data: ${data}\n\n`))
             const delta = chunk.choices?.[0]?.delta?.content
-            if (delta) assistantContent += delta
+            if (delta) {
+              assistantContent += delta
+              // gpt-oss can also emit a reasoning field; forward only visible content
+              const data = JSON.stringify({ choices: [{ delta: { content: delta } }] })
+              controller.enqueue(encoder.encode(`data: ${data}\n\n`))
+            }
           }
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
         } finally {
