@@ -46,13 +46,18 @@ export async function POST(req: NextRequest) {
     notifyEmergency({ lead, emergency }).catch(() => {})
 
     if (isTelnyxConfigured()) {
+      // Await the dial so the serverless function does not freeze before Telnyx is contacted.
       // At most one Telnyx callback per lead every 10 minutes. The email alert still goes out.
-      startEmergencyCallback(lead, {
-        id: emergency.id,
-        type: emergency.emergency_type,
-        phone: emergency.phone,
-        note: emergency.note,
-      }).catch(() => {})
+      try {
+        await startEmergencyCallback(lead, {
+          id: emergency.id,
+          type: emergency.emergency_type,
+          phone: emergency.phone,
+          note: emergency.note,
+        })
+      } catch {
+        console.error('emergency callback failed')
+      }
     }
 
     return Response.json({ ok: true, emergency_id: emergency.id })
