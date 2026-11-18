@@ -99,6 +99,27 @@ function callControlId(data: unknown): string | undefined {
   return root.data?.call_control_id
 }
 
+
+/** The +14807955295 inbound TeXML app. Never leave the number on another connection. */
+const INBOUND_CONNECTION_ID = '2971657913556272272'
+
+export async function restoreInboundNumberConnection() {
+  const fromNumber = telnyxEnv().fromNumber
+  if (!fromNumber) return
+  const listed = await telnyxFetch<{ data?: Array<{ id?: string; connection_id?: string }> }>(
+    `/phone_numbers?filter[phone_number]=${encodeURIComponent(fromNumber)}`,
+  )
+  const number = listed.data?.data?.[0]
+  if (!number?.id) return
+  if (number.connection_id === INBOUND_CONNECTION_ID) return
+  console.error('Telnyx moved the from number off the inbound TeXML connection; restoring it')
+  const patched = await telnyxFetch(`/phone_numbers/${encodeURIComponent(number.id)}`, {
+    method: 'PATCH',
+    body: { connection_id: INBOUND_CONNECTION_ID },
+  })
+  if (!patched.ok) console.error('Failed to restore inbound number connection', patched.status)
+}
+
 export async function dialCall(opts: {
   to: string
   clientState: TelnyxClientState
@@ -121,8 +142,10 @@ export async function dialCall(opts: {
   const res = await telnyxFetch('/calls', { method: 'POST', body })
   if (!res.ok) {
     console.error('Telnyx dial failed', res.status)
+    await restoreInboundNumberConnection()
     return { ok: false }
   }
+  await restoreInboundNumberConnection()
   return { ok: true, callControlId: callControlId(res.data) }
 }
 

@@ -24,3 +24,5 @@ ALTER TABLE public.chat_emergencies ENABLE ROW LEVEL SECURITY;
 -- Applied 2026-11-17 as migration chat_emergencies_call_status.
 -- Adds call_status, call_control_ids, call_event_ids, and RPCs
 -- get_chat_emergency, lead_has_recent_emergency_call, and update_chat_emergency_call.
+
+-- Also applied get_chat_emergency_by_call_control to resolve hangup webhooks without client_state.

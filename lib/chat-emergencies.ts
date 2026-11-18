@@ -129,3 +129,20 @@ export async function updateEmergencyCall(input: {
     already_processed: Boolean(row.already_processed),
   }
 }
+
+export async function getEmergencyByCallControl(callControlId: string): Promise<ChatEmergency | null> {
+  const supabase = getChatSupabase()
+  if (!supabase || !callControlId) return null
+  const { data, error } = await supabase.rpc('get_chat_emergency_by_call_control', {
+    p_call_control_id: callControlId,
+  })
+  if (error || !data) return null
+  const row = data as Record<string, unknown>
+  return {
+    ...rowToEmergency(row),
+    first_name: row.first_name ? String(row.first_name) : undefined,
+    last_name: row.last_name ? String(row.last_name) : undefined,
+    call_status: (row.call_status as string) ?? null,
+    call_control_ids: (row.call_control_ids as Record<string, string>) || {},
+  }
+}

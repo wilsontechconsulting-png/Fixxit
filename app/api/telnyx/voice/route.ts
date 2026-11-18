@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { getEmergency, updateEmergencyCall } from '@/lib/chat-emergencies'
+import { getEmergency, getEmergencyByCallControl, updateEmergencyCall } from '@/lib/chat-emergencies'
 import { emergencyLabel } from '@/lib/emergency-types'
 import {
   bridgeCalls,
@@ -53,8 +53,19 @@ async function mark(
 }
 
 async function handleEvent(eventType: string, eventId: string, payload: VoicePayload) {
-  const state = decodeClientState(payload.client_state)
   const callControlId = payload.call_control_id
+  let state = decodeClientState(payload.client_state)
+  if ((!state?.emergency_id || !state.role) && callControlId) {
+    const found = await getEmergencyByCallControl(callControlId)
+    if (found) {
+      const role = found.call_control_ids?.customer === callControlId ? 'customer' : 'team'
+      state = {
+        emergency_id: found.id,
+        role,
+        team_call_control_id: found.call_control_ids?.team,
+      }
+    }
+  }
   if (!state?.emergency_id || !callControlId) return
 
   const recorded = await mark(state.emergency_id, undefined, eventId)
