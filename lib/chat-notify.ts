@@ -3,6 +3,7 @@ import { getChatSupabase } from '@/lib/join-supabase'
 import type { ChatLead, PhotoAnalysis } from '@/lib/chat-leads'
 import type { ChatEmergency } from '@/lib/chat-emergencies'
 import { emergencyLabel } from '@/lib/emergency-types'
+import type { CallLog } from '@/lib/call-logs'
 
 /** Map a trade category to a notification inbox. Empty values fall back to NOTIFY_EMAIL. */
 export const TRADE_RECIPIENTS: Record<string, string> = {
@@ -210,5 +211,52 @@ export async function notifyEmergency(opts: { lead: ChatLead; emergency: ChatEme
     })
   } catch (err) {
     console.error('emergency notify email failed')
+  }
+}
+
+export function callCategoryLabel(category?: string | null): string {
+  if (category === 'emergency') return 'Emergency'
+  if (category === 'service') return 'Service'
+  if (category === 'applicant') return 'Job applicant'
+  if (category === 'other') return 'Other'
+  return category || 'Unknown'
+}
+
+export async function notifyCallLog(log: CallLog) {
+  const to = process.env.NOTIFY_EMAIL?.trim()
+  const from = process.env.RESEND_FROM?.trim()
+  const apiKey = process.env.RESEND_API_KEY?.trim()
+  if (!to || !from || !apiKey) return
+
+  const category = callCategoryLabel(log.category)
+  const name = (log.caller_name || 'Unknown caller').trim()
+  const subjectPrefix = log.category === 'emergency' ? '🚨 CALL EMERGENCY' : '📞 CALL'
+  const subject = `${subjectPrefix}: ${category} – ${name}`
+  const phone = log.callback_number || log.caller_number || '—'
+  const lines = [
+    'A call was logged by the FIXXIT Pros voice assistant.',
+    '',
+    `Name: ${name}`,
+    `Callback: ${phone}`,
+    `Caller ID: ${log.caller_number || '—'}`,
+    `Category: ${category}`,
+    `Zip: ${log.zip || '—'}`,
+    `Address: ${log.address || '—'}`,
+    `Issue: ${log.issue || '—'}`,
+    `Summary: ${log.summary || '—'}`,
+    `Conversation ID: ${log.conversation_id || '—'}`,
+    `Call log ID: ${log.id}`,
+  ]
+
+  try {
+    const resend = new Resend(apiKey)
+    await resend.emails.send({
+      from,
+      to: [to],
+      subject,
+      text: lines.join('\n'),
+    })
+  } catch (err) {
+    console.error('call log notify email failed')
   }
 }
