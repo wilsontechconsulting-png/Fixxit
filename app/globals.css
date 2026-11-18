@@ -534,7 +534,7 @@ body:has(.cookie-banner.visible) .chat-widget { --chat-toggle-offset: 9rem; }
 
 .chat-emergency-bar { flex-shrink: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem 0.75rem; background: #b42318; color: var(--white); border: none; font-family: var(--font-heading); font-size: 0.8125rem; font-weight: 700; cursor: pointer; letter-spacing: 0.01em; }
 .chat-emergency-bar:hover, .chat-emergency-bar.is-open { background: #911d14; }
-.chat-emergency-panel { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0.85rem 0.9rem 1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+.chat-emergency-panel { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-anchor: none; padding: 0.85rem 0.9rem 1rem; display: flex; flex-direction: column; justify-content: flex-start; gap: 0.55rem; position: relative; }
 .chat-emergency-title { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--navy); margin: 0; }
 .chat-emergency-lead, .chat-emergency-tip { margin: 0; font-size: 0.8125rem; color: var(--gray-600); line-height: 1.5; }
 .chat-emergency-tip { color: var(--gray-800); }
@@ -543,7 +543,7 @@ body:has(.cookie-banner.visible) .chat-widget { --chat-toggle-offset: 9rem; }
 .chat-emergency-type { width: 100%; text-align: left; padding: 0.6rem 0.75rem; background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.8125rem; font-weight: 700; color: var(--navy); cursor: pointer; }
 .chat-emergency-type:hover { border-color: #b42318; color: #b42318; }
 .chat-emergency-type-alert { border-color: #f1c0c0; }
-.chat-emergency-form, .chat-emergency-done { display: flex; flex-direction: column; gap: 0.65rem; }
+.chat-emergency-form, .chat-emergency-done { display: flex; flex-direction: column; justify-content: flex-start; gap: 0.65rem; position: relative; margin: 0; }
 .chat-emergency-note { width: 100%; padding: 0.55rem 0.7rem; border: 2px solid var(--gray-200); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.875rem; font-weight: 400; color: var(--gray-800); outline: none; resize: vertical; min-height: 4.5rem; }
 .chat-emergency-note:focus { border-color: var(--blue); }
 .chat-emergency-submit, .chat-emergency-call { width: 100%; padding: 0.7rem 0.9rem; background: #b42318; color: var(--white); border: none; border-radius: var(--radius-md); font-family: var(--font-heading); font-size: 0.875rem; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }

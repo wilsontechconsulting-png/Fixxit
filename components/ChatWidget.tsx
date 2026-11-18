@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect, type ReactNode } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect, type ReactNode } from 'react'
 import Markdown, { defaultUrlTransform } from 'react-markdown'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
@@ -120,6 +120,8 @@ export default function ChatWidget() {
   const [emergencyError, setEmergencyError] = useState('')
   const [emergencyBusy, setEmergencyBusy] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesAreaRef = useRef<HTMLDivElement>(null)
+  const emergencyPanelRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const sessionIdRef = useRef<string>(generateSessionId())
 
@@ -133,10 +135,19 @@ export default function ChatWidget() {
   }, [])
 
   useEffect(() => {
-    if (open && !needsGate && messages.length > 1) {
+    if (open && !needsGate && emergencyStep === 'closed' && messages.length > 1) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [messages, open, needsGate])
+  }, [messages, open, needsGate, emergencyStep])
+
+  useLayoutEffect(() => {
+    if (emergencyPanelRef.current) {
+      emergencyPanelRef.current.scrollTop = 0
+    }
+    if (emergencyStep === 'closed' && messagesAreaRef.current) {
+      messagesAreaRef.current.scrollTop = 0
+    }
+  }, [emergencyStep])
 
   useEffect(() => {
     function handleOpenChat() { setOpen(true) }
@@ -514,7 +525,7 @@ export default function ChatWidget() {
           )}
 
           {showChat && showEmergency && (
-            <div className="chat-emergency-panel">
+            <div className="chat-emergency-panel" ref={emergencyPanelRef}>
               {emergencyStep === 'types' && (
                 <>
                   <button type="button" className="chat-emergency-back" onClick={() => setEmergencyStep('closed')}>
@@ -597,7 +608,7 @@ export default function ChatWidget() {
           )}
 
           {showChat && !showEmergency && (
-            <div className="chat-messages">
+            <div className="chat-messages" ref={messagesAreaRef}>
               {messages.map((msg, i) => (
                 <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
                   {msg.role === 'assistant' ? <AssistantMarkdown content={msg.content} /> : msg.content}
