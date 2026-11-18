@@ -133,7 +133,7 @@ export default function ChatWidget() {
   }, [])
 
   useEffect(() => {
-    if (open && !needsGate) {
+    if (open && !needsGate && messages.length > 1) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, open, needsGate])
