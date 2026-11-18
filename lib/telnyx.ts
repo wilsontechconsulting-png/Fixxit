@@ -17,7 +17,8 @@ export function telnyxEnv() {
   const connectionId = process.env.TELNYX_CONNECTION_ID?.trim()
   const teamNumber = process.env.TELNYX_TEAM_NUMBER?.trim()
   const publicKey = process.env.TELNYX_PUBLIC_KEY?.trim()
-  return { apiKey, fromNumber, connectionId, teamNumber, publicKey }
+  const inboundConnectionId = process.env.TELNYX_INBOUND_CONNECTION_ID?.trim()
+  return { apiKey, fromNumber, connectionId, teamNumber, publicKey, inboundConnectionId }
 }
 
 export function isTelnyxReady() {
@@ -100,22 +101,19 @@ function callControlId(data: unknown): string | undefined {
 }
 
 
-/** The +14807955295 inbound TeXML app. Never leave the number on another connection. */
-const INBOUND_CONNECTION_ID = '2971657913556272272'
-
 export async function restoreInboundNumberConnection() {
-  const fromNumber = telnyxEnv().fromNumber
-  if (!fromNumber) return
+  const { fromNumber, inboundConnectionId } = telnyxEnv()
+  if (!fromNumber || !inboundConnectionId) return
   const listed = await telnyxFetch<{ data?: Array<{ id?: string; connection_id?: string }> }>(
     `/phone_numbers?filter[phone_number]=${encodeURIComponent(fromNumber)}`,
   )
   const number = listed.data?.data?.[0]
   if (!number?.id) return
-  if (number.connection_id === INBOUND_CONNECTION_ID) return
+  if (number.connection_id === inboundConnectionId) return
   console.error('Telnyx moved the from number off the inbound TeXML connection; restoring it')
   const patched = await telnyxFetch(`/phone_numbers/${encodeURIComponent(number.id)}`, {
     method: 'PATCH',
-    body: { connection_id: INBOUND_CONNECTION_ID },
+    body: { connection_id: inboundConnectionId },
   })
   if (!patched.ok) console.error('Failed to restore inbound number connection', patched.status)
 }
