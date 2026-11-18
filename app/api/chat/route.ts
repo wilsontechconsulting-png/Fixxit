@@ -38,7 +38,9 @@ Recruiting facts (use only these; do not add other claims):
 Recruiting rules:
 - Never invent pay figures, benefits, guarantees, licensing or legal claims, timelines, or hiring decisions.
 - If asked about pay, benefits, whether they will be hired, or how long hiring takes, say you don't have those details and the team will follow up after they apply.
-- Do not collect résumés, license numbers, contact information, or other personal details in chat. Direct them to the matching /join form.`
+- Do not collect résumés, license numbers, contact information, or other personal details in chat. Direct them to the matching /join form.
+
+Keep replies short and use real line breaks. Put each bullet on its own line. Use minimal bold, and do not use headings or tables. Write links as short Markdown labels, for example [Apply for Electrical](https://fixxitpros.com/join/electrical) or [Join Our Team](https://fixxitpros.com/join), never as raw URLs.`
 
 async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
   if (!supabaseAdmin) return

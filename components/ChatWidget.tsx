@@ -1,5 +1,56 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, type ReactNode } from 'react'
+import Markdown, { defaultUrlTransform } from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
+import remarkGfm from 'remark-gfm'
+
+function safeUrl(url: string) {
+  const value = url.trim()
+  if (/^(tel|mailto):/i.test(value)) return value
+  return defaultUrlTransform(value)
+}
+
+function isFixxitHref(href?: string) {
+  if (!href) return false
+  if (href.startsWith('/') && !href.startsWith('//')) return true
+  try {
+    const url = new URL(href, 'https://fixxitpros.com')
+    return url.hostname === 'fixxitpros.com' || url.hostname === 'www.fixxitpros.com'
+  } catch {
+    return false
+  }
+}
+
+function AssistantMarkdown({ content }: { content: string }) {
+  if (!content) return null
+  return (
+    <div className="chat-md">
+      <Markdown
+        remarkPlugins={[remarkBreaks, remarkGfm]}
+        allowedElements={['p', 'br', 'strong', 'em', 'a', 'ul', 'ol', 'li']}
+        unwrapDisallowed
+        urlTransform={safeUrl}
+        components={{
+          a({ href, children }: { href?: string; children?: ReactNode }) {
+            const internal = isFixxitHref(href)
+            return (
+              <a
+                href={href}
+                {...(internal
+                  ? {}
+                  : { target: '_blank', rel: 'noopener noreferrer' })}
+              >
+                {children}
+              </a>
+            )
+          },
+        }}
+      >
+        {content}
+      </Markdown>
+    </div>
+  )
+}
 
 interface Message {
   role: 'user' | 'assistant'
@@ -198,7 +249,7 @@ export default function ChatWidget() {
           <div className="chat-messages">
             {messages.map((msg, i) => (
               <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
-                {msg.content}
+                {msg.role === 'assistant' ? <AssistantMarkdown content={msg.content} /> : msg.content}
               </div>
             ))}
             {loading && (
