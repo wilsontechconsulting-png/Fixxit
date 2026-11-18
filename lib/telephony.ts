@@ -1,6 +1,7 @@
 import type { ChatLead } from '@/lib/chat-leads'
 import { leadHasRecentEmergencyCall, updateEmergencyCall } from '@/lib/chat-emergencies'
-import { dialCall, isTelnyxReady, toE164 } from '@/lib/telnyx'
+import { emergencyLabel } from '@/lib/emergency-types'
+import { dialCall, isTelnyxReady, isTelnyxSmsEnabled, sendSms, toE164 } from '@/lib/telnyx'
 
 export type EmergencyCallbackRecord = {
   id: string
@@ -50,6 +51,19 @@ export async function startEmergencyCallback(
   const teamNumber = process.env.TELNYX_TEAM_NUMBER?.trim()
   if (!teamNumber) {
     return { started: false, reason: 'telephony_not_configured' }
+  }
+
+  if (isTelnyxSmsEnabled()) {
+    const name = [lead.first_name, lead.last_name].filter(Boolean).join(' ').trim() || 'Unknown'
+    const note = (emergency.note || '').trim().replace(/\s+/g, ' ')
+    const parts = [
+      `FIXXIT emergency: ${emergencyLabel(emergency.type)}.`,
+      `${name}, ${customer}.`,
+    ]
+    if (note) parts.push(note)
+    const text = parts.join(' ').slice(0, 320)
+    const sms = await sendSms({ to: teamNumber, text })
+    if (!sms.ok) console.error('Emergency SMS failed', sms.status)
   }
 
   const dial = await dialCall({

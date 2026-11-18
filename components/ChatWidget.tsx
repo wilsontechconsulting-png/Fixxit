@@ -479,17 +479,22 @@ export default function ChatWidget() {
                     />
                   </label>
                 </div>
-                <label className="chat-gate-field">
-                  <span>Phone</span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    autoComplete="tel"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    required
-                  />
-                </label>
+                <div className="chat-gate-phone">
+                  <label className="chat-gate-field">
+                    <span>Phone</span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      autoComplete="tel"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <p className="chat-gate-consent">
+                    By providing your number you agree to receive calls and texts from FIXXIT Pros about your request. Msg &amp; data rates may apply. Reply STOP to opt out.
+                  </p>
+                </div>
                 <label className="chat-gate-field">
                   <span>Email</span>
                   <input

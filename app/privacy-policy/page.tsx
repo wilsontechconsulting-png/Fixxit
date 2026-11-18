@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
     <div className="page-content">
       <div className="container">
         <h1>Privacy Policy</h1>
-        <p><em>Last Updated: January 1, 2025</em></p>
+        <p><em>Last Updated: November 17, 2026</em></p>
 
         <p>Fixxit Pros (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website fixxitpros.com or use our services.</p>
 
@@ -44,7 +44,10 @@ export default function PrivacyPolicyPage() {
           <li>To detect and prevent fraud</li>
         </ul>
 
-        <h2>3. Sharing Your Information</h2>
+        <h2>3. Text Messages (SMS)</h2>
+        <p>If you provide your phone number on our website, including in the chat form on fixxitpros.com, we may use it to call or text you about your service request. Message and data rates may apply. Message frequency varies. You can opt out of text messages at any time by replying STOP. Reply HELP for help. Consent to receive calls or texts is not a condition of using our services.</p>
+
+        <h2>4. Sharing Your Information</h2>
         <p>We may share your information with:</p>
         <ul>
           <li><strong>Service Contractors:</strong> To fulfill your service requests</li>
@@ -54,10 +57,10 @@ export default function PrivacyPolicyPage() {
         </ul>
         <p>We do not sell your personal information to third parties.</p>
 
-        <h2>4. Data Retention</h2>
+        <h2>5. Data Retention</h2>
         <p>We retain your information for as long as necessary to provide our services and comply with legal obligations. You may request deletion of your data at any time.</p>
 
-        <h2>5. Your Rights</h2>
+        <h2>6. Your Rights</h2>
         <p>Depending on your location, you may have rights to:</p>
         <ul>
           <li>Access the personal information we hold about you</li>
@@ -67,22 +70,22 @@ export default function PrivacyPolicyPage() {
           <li>Data portability (California residents under CCPA)</li>
         </ul>
 
-        <h2>6. Cookies</h2>
+        <h2>7. Cookies</h2>
         <p>We use cookies and similar technologies to enhance your experience. See our <a href="/cookie-policy">Cookie Policy</a> for details.</p>
 
-        <h2>7. Third-Party Links</h2>
+        <h2>8. Third-Party Links</h2>
         <p>Our website may contain links to third-party websites. We are not responsible for their privacy practices.</p>
 
-        <h2>8. Children&apos;s Privacy</h2>
+        <h2>9. Children&apos;s Privacy</h2>
         <p>Our services are not directed to children under 13. We do not knowingly collect information from children.</p>
 
-        <h2>9. Data Security</h2>
+        <h2>10. Data Security</h2>
         <p>We implement appropriate technical and organizational measures to protect your information. However, no transmission over the internet is 100% secure.</p>
 
-        <h2>10. Changes to This Policy</h2>
+        <h2>11. Changes to This Policy</h2>
         <p>We may update this policy periodically. We will notify you of material changes by posting the new policy on this page with an updated date.</p>
 
-        <h2>11. Contact Us</h2>
+        <h2>12. Contact Us</h2>
         <p>If you have questions about this Privacy Policy, contact us at:</p>
         <ul>
           <li>Email: <a href="mailto:info@fixxitpros.com">info@fixxitpros.com</a></li>

@@ -18,12 +18,17 @@ export function telnyxEnv() {
   const teamNumber = process.env.TELNYX_TEAM_NUMBER?.trim()
   const publicKey = process.env.TELNYX_PUBLIC_KEY?.trim()
   const inboundConnectionId = process.env.TELNYX_INBOUND_CONNECTION_ID?.trim()
-  return { apiKey, fromNumber, connectionId, teamNumber, publicKey, inboundConnectionId }
+  const messagingProfileId = process.env.TELNYX_MESSAGING_PROFILE_ID?.trim() || '40019e7b-e4ab-43ff-8a4f-676498f8b4ba'
+  return { apiKey, fromNumber, connectionId, teamNumber, publicKey, inboundConnectionId, messagingProfileId }
 }
 
 export function isTelnyxReady() {
   const env = telnyxEnv()
   return Boolean(env.apiKey && env.fromNumber && env.connectionId && env.teamNumber)
+}
+
+export function isTelnyxSmsEnabled() {
+  return process.env.TELNYX_SMS_ENABLED?.trim() === 'true'
 }
 
 export function toE164(phone: string): string | null {
@@ -200,3 +205,21 @@ export async function hangupCall(callControlId: string) {
   if (!res.ok && res.status !== 422) console.error('Telnyx hangup failed', res.status)
   return res.ok
 }
+
+export async function sendSms(opts: { to: string; text: string }): Promise<{ ok: boolean; status: number }> {
+  const env = telnyxEnv()
+  const to = toE164(opts.to)
+  if (!env.fromNumber || !to || !opts.text.trim()) return { ok: false, status: 0 }
+  const res = await telnyxFetch('/messages', {
+    method: 'POST',
+    body: {
+      from: env.fromNumber,
+      to,
+      text: opts.text.trim(),
+      messaging_profile_id: env.messagingProfileId,
+    },
+  })
+  if (!res.ok) console.error('Telnyx SMS send failed', res.status)
+  return { ok: res.ok, status: res.status }
+}
+
