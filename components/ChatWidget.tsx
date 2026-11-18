@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, type ReactNode } from 'react'
 import Markdown, { defaultUrlTransform } from 'react-markdown'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
-import { EMERGENCY_TYPES, GAS_FIRE_WARNING, emergencyTypeById } from '@/lib/emergency-types'
+import { EMERGENCY_TYPES, FIRE_SAFETY_WARNING, GAS_SAFETY_WARNING, emergencyTypeById } from '@/lib/emergency-types'
 
 function safeUrl(url: string) {
   const value = url.trim()
@@ -107,7 +107,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! I'm the Fixxit assistant 🏠\n\nTell me what's going on, or snap a photo. I can:\n\n- Read photos of damage and tell you what likely needs fixing\n- Flag emergencies like leaks, gas smells or electrical hazards\n- Get you to the right pro\n\nIf this is urgent, tap **Emergency** below. If you smell gas or see fire, leave and call 911.",
+      content: "Hi! I'm the Fixxit assistant 🏠\n\nTell me what's going on, or snap a photo. I can:\n\n- Read photos of damage and tell you what likely needs fixing\n- Flag emergencies like leaks, gas smells or electrical hazards\n- Get you to the right pro\n\nIf this is urgent, tap **Emergency** below. If you smell gas, leave right away and call 911 from outside.",
     },
   ])
   const [input, setInput] = useState('')
@@ -521,7 +521,7 @@ export default function ChatWidget() {
                     ← Back to chat
                   </button>
                   <h3 className="chat-emergency-title">What type of emergency?</h3>
-                  <p className="chat-emergency-lead">Choose the closest match. If you smell gas or see fire, leave and call 911 first.</p>
+                  <p className="chat-emergency-lead">Choose the closest match. If you smell gas, leave right away and call 911 and your gas company from outside.</p>
                   <div className="chat-emergency-types">
                     {EMERGENCY_TYPES.map((item) => (
                       <button
@@ -544,9 +544,11 @@ export default function ChatWidget() {
                   </button>
                   <h3 className="chat-emergency-title">{selectedEmergency.label}</h3>
                   {selectedEmergency.alertFirst && (
-                    <p className="chat-emergency-alert">{GAS_FIRE_WARNING}</p>
+                    <p className="chat-emergency-alert">
+                      {selectedEmergency.id === 'gas_smell' ? GAS_SAFETY_WARNING : FIRE_SAFETY_WARNING}
+                    </p>
                   )}
-                  <p className="chat-emergency-tip">{selectedEmergency.tip}</p>
+                  {selectedEmergency.tip ? <p className="chat-emergency-tip">{selectedEmergency.tip}</p> : null}
                   <label className="chat-gate-field">
                     <span>Phone number</span>
                     <input

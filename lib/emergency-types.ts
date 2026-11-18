@@ -1,5 +1,8 @@
-export const GAS_FIRE_WARNING =
-  'If you smell gas or see fire, leave and call 911 or your gas company now'
+export const GAS_SAFETY_WARNING =
+  "Smell gas? Leave right away and take everyone with you. Don't flip switches, use appliances, light anything, or start a car. Once you're safely outside and away from the building, call 911 and your gas company's emergency line. Don't go back in until they say it's safe."
+
+export const FIRE_SAFETY_WARNING =
+  'If you see fire, leave and call 911 from a safe place. If you see sparks or smell burning, shut off the breaker only if it is safe.'
 
 export const EMERGENCY_TYPES = [
   {
@@ -11,7 +14,7 @@ export const EMERGENCY_TYPES = [
   {
     id: 'gas_smell',
     label: 'Gas smell',
-    tip: 'Leave the house immediately. Do not turn lights or appliances on or off, and call 911 or your gas utility from a safe place.',
+    tip: '',
     alertFirst: true,
   },
   {
@@ -23,7 +26,7 @@ export const EMERGENCY_TYPES = [
   {
     id: 'no_heat',
     label: 'No heat',
-    tip: 'Check that the thermostat has power. If you smell gas or burning, leave and treat it as a gas or fire emergency.',
+    tip: 'Check that the thermostat has power. If you smell gas, leave right away, take everyone with you, and call 911 and your gas company from outside. Don\'t flip switches, light anything, or go back in until they say it\'s safe.',
     alertFirst: false,
   },
   {
