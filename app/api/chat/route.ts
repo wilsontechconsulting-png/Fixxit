@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import Groq from 'groq-sdk'
-import { supabaseAdmin } from '@/lib/supabase'
+import { clientIp, rateLimit, rateLimitResponse } from '@/lib/rate-limit'
+import { analysisContext, isLead, logChatMessage, requireLead } from '@/lib/chat-leads'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
@@ -42,37 +43,54 @@ Recruiting rules:
 
 Keep replies short and use real line breaks. Put each bullet on its own line. Use minimal bold, and do not use headings or tables. Write links as short Markdown labels, for example [Apply for Electrical](https://fixxitpros.com/join/electrical) or [Join Our Team](https://fixxitpros.com/join), never as raw URLs.`
 
-async function logMessage(sessionId: string, role: string, content: string, metadata: Record<string, string>) {
-  if (!supabaseAdmin) return
-  try {
-    const { error } = await supabaseAdmin
-      .from('chat_conversations')
-      .insert({ session_id: sessionId, role, content, metadata })
-    if (error) console.error('Supabase log error:', error)
-  } catch (err) {
-    console.error('Supabase log error:', err)
-  }
+
+type ChatTurn = { role: 'user' | 'assistant'; content: string }
+
+function sanitizeMessages(input: unknown): ChatTurn[] {
+  if (!Array.isArray(input)) return []
+  const allowed = input.filter((item): item is ChatTurn => {
+    if (!item || typeof item !== 'object') return false
+    const role = (item as ChatTurn).role
+    const content = (item as ChatTurn).content
+    return (role === 'user' || role === 'assistant') && typeof content === 'string'
+  })
+  return allowed.slice(-30).map((item) => ({
+    role: item.role,
+    content: item.content.slice(0, 4000),
+  }))
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, session_id } = await req.json()
+    if (!rateLimit(`chat:${clientIp(req)}`, 40, 10 * 60 * 1000)) {
+      return rateLimitResponse()
+    }
+
+    const body = await req.json()
+    const lead = await requireLead(body?.session_id)
+    if (!isLead(lead)) {
+      return Response.json({ error: lead.error }, { status: lead.status })
+    }
+
+    const messages = sanitizeMessages(body?.messages)
+    if (!messages.length) {
+      return Response.json({ error: 'Please enter a message.' }, { status: 400 })
+    }
 
     const metadata = {
       user_agent: req.headers.get('user-agent') ?? '',
       referer: req.headers.get('referer') ?? '',
     }
 
-    // Log the last user message (fire-and-forget — never blocks the chat response)
     const lastMessage = messages[messages.length - 1]
     if (lastMessage?.role === 'user') {
-      logMessage(session_id ?? 'unknown', 'user', lastMessage.content, metadata)
+      logChatMessage(lead.session_id, 'user', lastMessage.content, metadata)
     }
 
     const stream = await groq.chat.completions.create({
       model: 'openai/gpt-oss-120b',
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: SYSTEM_PROMPT + analysisContext(lead) },
         ...messages,
       ],
       stream: true,
@@ -90,7 +108,6 @@ export async function POST(req: NextRequest) {
             const delta = chunk.choices?.[0]?.delta?.content
             if (delta) {
               assistantContent += delta
-              // gpt-oss can also emit a reasoning field; forward only visible content
               const data = JSON.stringify({ choices: [{ delta: { content: delta } }] })
               controller.enqueue(encoder.encode(`data: ${data}\n\n`))
             }
@@ -98,9 +115,8 @@ export async function POST(req: NextRequest) {
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
         } finally {
           controller.close()
-          // Log the full assistant response after streaming completes
           if (assistantContent) {
-            logMessage(session_id ?? 'unknown', 'assistant', assistantContent, metadata)
+            logChatMessage(lead.session_id, 'assistant', assistantContent, metadata)
           }
         }
       },

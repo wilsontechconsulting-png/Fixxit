@@ -485,6 +485,22 @@ h1, h2, h3, h4, h5, h6 {
 .chat-md strong { font-weight: 700; }
 .chat-md a { color: var(--blue); text-decoration: underline; word-break: break-word; }
 .chat-md a:hover { color: var(--blue-dark); }
+
+.chat-gate { padding: 1rem 1rem 1.1rem; overflow-y: auto; }
+.chat-gate-intro { font-size: 0.875rem; line-height: 1.55; color: var(--gray-800); margin: 0 0 0.9rem; }
+.chat-gate-form { display: flex; flex-direction: column; gap: 0.65rem; }
+.chat-gate-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.chat-gate-field { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.75rem; font-weight: 700; color: var(--navy); }
+.chat-gate-field input { width: 100%; padding: 0.55rem 0.7rem; border: 2px solid var(--gray-200); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.875rem; font-weight: 400; color: var(--gray-800); outline: none; }
+.chat-gate-field input:focus { border-color: var(--blue); }
+.chat-gate-submit { width: 100%; margin-top: 0.2rem; padding: 0.7rem 0.9rem; background: var(--blue); color: var(--white); border: none; border-radius: var(--radius-md); font-family: var(--font-heading); font-size: 0.875rem; font-weight: 700; cursor: pointer; }
+.chat-gate-submit:hover { background: var(--blue-dark); }
+.chat-gate-submit:disabled { background: var(--gray-400); cursor: not-allowed; }
+.chat-gate-error { margin: 0; color: #b42318; font-size: 0.8125rem; line-height: 1.4; }
+.chat-gate-privacy { margin: 0.15rem 0 0; font-size: 0.75rem; line-height: 1.45; color: var(--gray-600); font-weight: 400; }
+.chat-gate-privacy a { color: var(--blue); text-decoration: underline; }
+.chat-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+@media (max-width: 399px) { .chat-gate-row { grid-template-columns: 1fr; } }
 .chat-typing { display: flex; gap: 4px; padding: 0.625rem 0.875rem; background: var(--gray-100); border-radius: 12px; border-bottom-left-radius: 4px; align-self: flex-start; width: fit-content; }
 .chat-typing span { width: 7px; height: 7px; background: var(--gray-400); border-radius: 50%; animation: typing-bounce 1.2s infinite; }
 .chat-typing span:nth-child(2) { animation-delay: 0.2s; }

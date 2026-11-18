@@ -52,9 +52,18 @@ function AssistantMarkdown({ content }: { content: string }) {
   )
 }
 
+const STORAGE_KEY = 'fixxit_chat_lead'
+const MAX_PHOTOS = 3
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024
+
 interface Message {
   role: 'user' | 'assistant'
   content: string
+}
+
+interface StoredLead {
+  session_id: string
+  lead_id: string
 }
 
 function generateSessionId() {
@@ -63,8 +72,37 @@ function generateSessionId() {
     : Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
+function readStoredLead(): StoredLead | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as StoredLead
+    if (parsed?.session_id && parsed?.lead_id) return parsed
+  } catch {
+    // ignore damaged storage
+  }
+  return null
+}
+
+function writeStoredLead(lead: StoredLead) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lead))
+}
+
+function clearStoredLead() {
+  localStorage.removeItem(STORAGE_KEY)
+}
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
+  const [gateReady, setGateReady] = useState(false)
+  const [needsGate, setNeedsGate] = useState(true)
+  const [gateError, setGateError] = useState('')
+  const [gateBusy, setGateBusy] = useState(false)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -79,10 +117,19 @@ export default function ChatWidget() {
   const sessionIdRef = useRef<string>(generateSessionId())
 
   useEffect(() => {
-    if (open) {
+    const stored = readStoredLead()
+    if (stored) {
+      sessionIdRef.current = stored.session_id
+      setNeedsGate(false)
+    }
+    setGateReady(true)
+  }, [])
+
+  useEffect(() => {
+    if (open && !needsGate) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [messages, open])
+  }, [messages, open, needsGate])
 
   useEffect(() => {
     function handleOpenChat() { setOpen(true) }
@@ -90,9 +137,63 @@ export default function ChatWidget() {
     return () => window.removeEventListener('openChat', handleOpenChat)
   }, [])
 
+  function lockForNewLead() {
+    clearStoredLead()
+    sessionIdRef.current = generateSessionId()
+    setNeedsGate(true)
+    setGateError('')
+  }
+
+  async function submitLead(e: React.FormEvent) {
+    e.preventDefault()
+    if (gateBusy) return
+    setGateError('')
+    const digits = phone.replace(/\D/g, '')
+    if (!firstName.trim() || !lastName.trim() || !phone.trim() || !email.trim()) {
+      setGateError('First name, last name, phone, and email are required.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setGateError('Please enter a valid email address.')
+      return
+    }
+    if (digits.length < 10) {
+      setGateError('Please enter a phone number with at least 10 digits.')
+      return
+    }
+
+    setGateBusy(true)
+    try {
+      const res = await fetch('/api/chat/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+          company: honeypot,
+          session_id: sessionIdRef.current,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setGateError(typeof data.error === 'string' ? data.error : 'Unable to start chat. Please try again.')
+        return
+      }
+      if (data.session_id) sessionIdRef.current = data.session_id
+      writeStoredLead({ session_id: data.session_id, lead_id: data.lead_id })
+      setNeedsGate(false)
+    } catch {
+      setGateError('Unable to start chat. Please try again.')
+    } finally {
+      setGateBusy(false)
+    }
+  }
+
   async function send() {
     const text = input.trim()
-    if (!text || loading) return
+    if (!text || loading || needsGate) return
 
     const newMessages: Message[] = [...messages, { role: 'user', content: text }]
     setMessages(newMessages)
@@ -106,6 +207,10 @@ export default function ChatWidget() {
         body: JSON.stringify({ messages: newMessages, session_id: sessionIdRef.current }),
       })
 
+      if (res.status === 401) {
+        lockForNewLead()
+        throw new Error('gated')
+      }
       if (!res.ok) throw new Error('Failed')
 
       const reader = res.body?.getReader()
@@ -140,11 +245,15 @@ export default function ChatWidget() {
           }
         }
       }
-    } catch {
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: 'Sorry, I\'m having trouble connecting. Please call us at 888-229-5696.',
-      }])
+    } catch (error) {
+      if (error instanceof Error && error.message === 'gated') {
+        setMessages(prev => prev.slice(0, -1))
+      } else {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: 'Sorry, I\'m having trouble connecting. Please call us at 888-229-5696.',
+        }])
+      }
     } finally {
       setLoading(false)
     }
@@ -158,71 +267,58 @@ export default function ChatWidget() {
   }
 
   async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file || uploading) return
+    const files = Array.from(e.target.files || []).slice(0, MAX_PHOTOS)
+    if (!files.length || uploading || needsGate) return
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file')
-      return
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Image must be less than 5MB')
-      return
+    for (const file of files) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please select image files only')
+        return
+      }
+      if (file.size > MAX_PHOTO_BYTES) {
+        alert('Each image must be 5 MB or less')
+        return
+      }
     }
 
     setUploading(true)
-
-    // Show uploading message
-    setMessages(prev => [...prev, {
-      role: 'user',
-      content: '📸 Analyzing photo...'
-    }])
+    const label = files.length > 1 ? `📸 Analyzing ${files.length} photos...` : '📸 Analyzing photo...'
+    setMessages(prev => [...prev, { role: 'user', content: label }])
 
     try {
       const formData = new FormData()
-      formData.append('image', file)
+      for (const file of files) formData.append('images', file)
       formData.append('session_id', sessionIdRef.current)
 
       const res = await fetch('/api/analyze-image', {
         method: 'POST',
-        body: formData
+        body: formData,
       })
+      const result = await res.json().catch(() => ({}))
 
-      console.log('Response status:', res.status)
-      const result = await res.json()
-      console.log('Response data:', result)
+      if (res.status === 401) {
+        lockForNewLead()
+        setMessages(prev => prev.slice(0, -1))
+        return
+      }
 
-      if (result.analysis) {
-        // Replace "analyzing" message with result
+      const summary = typeof result.summary === 'string' ? result.summary : ''
+      if (summary) {
         setMessages(prev => {
           const updated = [...prev]
           updated[updated.length - 1] = {
             role: 'user',
-            content: '📸 Photo uploaded'
+            content: files.length > 1 ? `📸 ${files.length} photos uploaded` : '📸 Photo uploaded',
           }
-          return updated
+          return [...updated, { role: 'assistant', content: summary }]
         })
-
-        // Add AI analysis
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: result.analysis
-        }])
       } else {
-        throw new Error('No analysis returned')
+        throw new Error(typeof result.error === 'string' ? result.error : 'No analysis returned')
       }
     } catch (error) {
-      console.error('Photo upload error:', error)
-      console.error('Error details:', {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        type: typeof error
-      })
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `Sorry, I had trouble analyzing that image. Error: ${error instanceof Error ? error.message : 'Unknown'}. Please try again or describe your problem in text!`
+        content: "Sorry, I had trouble reviewing that photo. Please try again, or describe the problem in text and I'll be happy to help.",
       }])
     } finally {
       setUploading(false)
@@ -231,6 +327,8 @@ export default function ChatWidget() {
       }
     }
   }
+
+  const showChat = gateReady && !needsGate
 
   return (
     <div className="chat-widget">
@@ -246,76 +344,152 @@ export default function ChatWidget() {
             </div>
             <button className="chat-close-btn" onClick={() => setOpen(false)} aria-label="Close chat">✕</button>
           </div>
-          <div className="chat-messages">
-            {messages.map((msg, i) => (
-              <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
-                {msg.role === 'assistant' ? <AssistantMarkdown content={msg.content} /> : msg.content}
-              </div>
-            ))}
-            {loading && (
-              <div className="chat-typing">
-                <span /><span /><span />
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-          {/* Quick Action Buttons */}
-          <div className="chat-quick-actions">
-            <button 
-              className="quick-action-btn quick-action-photo"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
-              aria-label="Upload photo"
-            >
-              <span className="quick-action-icon">📸</span>
-              <span className="quick-action-text">{uploading ? 'Analyzing...' : 'Upload Photo'}</span>
-            </button>
-            <button 
-              className="quick-action-btn quick-action-call"
-              onClick={() => window.location.href = 'tel:888-229-5696'}
-              aria-label="Call now"
-            >
-              <span className="quick-action-icon">📞</span>
-              <span className="quick-action-text">Call Now</span>
-            </button>
-            <button 
-              className="quick-action-btn quick-action-quote"
-              onClick={() => window.open('https://fixxitpros.com/questions', '_blank')}
-              aria-label="Get a quote"
-            >
-              <span className="quick-action-icon">📝</span>
-              <span className="quick-action-text">Get Quote</span>
-            </button>
-          </div>
 
-          {/* Hidden file input */}
-          <input 
-            ref={fileInputRef}
-            type="file" 
-            accept="image/*" 
-            capture="environment"
-            onChange={handlePhotoUpload}
-            style={{ display: 'none' }}
-          />
+          {gateReady && needsGate && (
+            <div className="chat-gate">
+              <p className="chat-gate-intro">
+                To help protect against spam, and so we can contact you about your issue or the service you need, please share your first name, last name, phone number and email. Then you can keep chatting.
+              </p>
+              <form className="chat-gate-form" onSubmit={submitLead}>
+                <div className="chat-gate-row">
+                  <label className="chat-gate-field">
+                    <span>First name</span>
+                    <input
+                      type="text"
+                      name="first_name"
+                      autoComplete="given-name"
+                      value={firstName}
+                      onChange={e => setFirstName(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <label className="chat-gate-field">
+                    <span>Last name</span>
+                    <input
+                      type="text"
+                      name="last_name"
+                      autoComplete="family-name"
+                      value={lastName}
+                      onChange={e => setLastName(e.target.value)}
+                      required
+                    />
+                  </label>
+                </div>
+                <label className="chat-gate-field">
+                  <span>Phone</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    autoComplete="tel"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    required
+                  />
+                </label>
+                <label className="chat-gate-field">
+                  <span>Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                  />
+                </label>
+                <div className="chat-hp" aria-hidden="true">
+                  <label htmlFor="chat-company">Company</label>
+                  <input
+                    id="chat-company"
+                    name="company"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={e => setHoneypot(e.target.value)}
+                  />
+                </div>
+                {gateError && <p className="chat-gate-error">{gateError}</p>}
+                <button className="chat-gate-submit" type="submit" disabled={gateBusy}>
+                  {gateBusy ? 'Starting…' : 'Continue to chat'}
+                </button>
+                <p className="chat-gate-privacy">
+                  We use this information to follow up about your request and to help reduce spam. Read our{' '}
+                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                </p>
+              </form>
+            </div>
+          )}
 
-          <div className="chat-input-area">
-            <textarea
-              className="chat-input"
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-              placeholder="Describe your home service need..."
-              rows={1}
-            />
-            <button
-              className="chat-send-btn"
-              onClick={send}
-              disabled={loading || !input.trim()}
-              aria-label="Send message"
-            >
-              ➤
-            </button>
-          </div>
+          {showChat && (
+            <>
+              <div className="chat-messages">
+                {messages.map((msg, i) => (
+                  <div key={i} className={`chat-msg ${msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-bot'}`}>
+                    {msg.role === 'assistant' ? <AssistantMarkdown content={msg.content} /> : msg.content}
+                  </div>
+                ))}
+                {loading && (
+                  <div className="chat-typing">
+                    <span /><span /><span />
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+              <div className="chat-quick-actions">
+                <button
+                  className="quick-action-btn quick-action-photo"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  aria-label="Upload photo"
+                >
+                  <span className="quick-action-icon">📸</span>
+                  <span className="quick-action-text">{uploading ? 'Analyzing...' : 'Upload Photo'}</span>
+                </button>
+                <button
+                  className="quick-action-btn quick-action-call"
+                  onClick={() => window.location.href = 'tel:888-229-5696'}
+                  aria-label="Call now"
+                >
+                  <span className="quick-action-icon">📞</span>
+                  <span className="quick-action-text">Call Now</span>
+                </button>
+                <button
+                  className="quick-action-btn quick-action-quote"
+                  onClick={() => window.open('https://fixxitpros.com/questions', '_blank')}
+                  aria-label="Get a quote"
+                >
+                  <span className="quick-action-icon">📝</span>
+                  <span className="quick-action-text">Get Quote</span>
+                </button>
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handlePhotoUpload}
+                style={{ display: 'none' }}
+              />
+              <div className="chat-input-area">
+                <textarea
+                  className="chat-input"
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={handleKey}
+                  placeholder="Describe your home service need..."
+                  rows={1}
+                />
+                <button
+                  className="chat-send-btn"
+                  onClick={send}
+                  disabled={loading || !input.trim()}
+                  aria-label="Send message"
+                >
+                  ➤
+                </button>
+              </div>
+            </>
+          )}
         </div>
       )}
       <button
