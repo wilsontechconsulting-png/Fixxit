@@ -103,6 +103,7 @@ export default function ChatWidget() {
   const [lastName, setLastName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [smsConsent, setSmsConsent] = useState(false)
   const [honeypot, setHoneypot] = useState('')
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -117,6 +118,7 @@ export default function ChatWidget() {
   const [emergencyType, setEmergencyType] = useState<string | null>(null)
   const [emergencyPhone, setEmergencyPhone] = useState('')
   const [emergencyNote, setEmergencyNote] = useState('')
+  const [emergencySmsConsent, setEmergencySmsConsent] = useState(false)
   const [emergencyError, setEmergencyError] = useState('')
   const [emergencyBusy, setEmergencyBusy] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -192,6 +194,7 @@ export default function ChatWidget() {
           email: email.trim(),
           company: honeypot,
           session_id: sessionIdRef.current,
+          sms_consent: smsConsent,
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -355,6 +358,7 @@ export default function ChatWidget() {
     }
     setEmergencyError('')
     setEmergencyNote('')
+    setEmergencySmsConsent(false)
     setEmergencyType(null)
     setEmergencyStep('types')
     let nextPhone = phone.trim()
@@ -399,6 +403,7 @@ export default function ChatWidget() {
           emergency_type: emergencyType,
           phone: emergencyPhone.trim(),
           note: emergencyNote.trim(),
+          sms_consent: emergencySmsConsent,
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -492,8 +497,21 @@ export default function ChatWidget() {
                     />
                   </label>
                   <p className="chat-gate-consent">
-                    By providing your number you agree to receive calls and texts from FIXXIT Pros about your request. Msg &amp; data rates may apply. Reply STOP to opt out.
+                    We use your number to call you about your request.
                   </p>
+                  <label className="chat-gate-check">
+                    <input
+                      type="checkbox"
+                      name="sms_consent"
+                      checked={smsConsent}
+                      onChange={e => setSmsConsent(e.target.checked)}
+                    />
+                    <span>
+                      Optional: Yes, text me about my service request from FIXXIT Pros. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See our{' '}
+                      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and{' '}
+                      <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a>.
+                    </span>
+                  </label>
                 </div>
                 <label className="chat-gate-field">
                   <span>Email</span>
@@ -523,7 +541,8 @@ export default function ChatWidget() {
                 </button>
                 <p className="chat-gate-privacy">
                   We use this information to follow up about your request and to help reduce spam. Read our{' '}
-                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and{' '}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a>.
                 </p>
               </form>
             </div>
@@ -575,6 +594,19 @@ export default function ChatWidget() {
                       onChange={(e) => setEmergencyPhone(e.target.value)}
                       required
                     />
+                  </label>
+                  <label className="chat-gate-check">
+                    <input
+                      type="checkbox"
+                      name="emergency_sms_consent"
+                      checked={emergencySmsConsent}
+                      onChange={e => setEmergencySmsConsent(e.target.checked)}
+                    />
+                    <span>
+                      Optional: Yes, text me about my service request from FIXXIT Pros. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See our{' '}
+                      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and{' '}
+                      <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a>.
+                    </span>
                   </label>
                   <label className="chat-gate-field">
                     <span>Short note (optional)</span>

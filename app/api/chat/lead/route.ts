@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
       email: checked.email,
       user_agent: req.headers.get('user-agent') ?? '',
       referer: req.headers.get('referer') ?? '',
+      sms_consent: body.sms_consent === true,
     })
 
     notifyChatLead({ kind: 'created', lead }).catch(() => {})

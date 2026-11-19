@@ -15,6 +15,24 @@ export function isTelnyxConfigured(): boolean {
 }
 
 /**
+ * Text a customer only if they checked the optional SMS consent box
+ * (sms_consent on chat_leads / chat_emergencies) and texting is enabled.
+ * Team alerts to TELNYX_TEAM_NUMBER do not go through this helper.
+ */
+export async function sendCustomerSms(opts: {
+  to: string
+  text: string
+  smsConsent: boolean
+}): Promise<{ ok: boolean; reason?: string }> {
+  if (opts.smsConsent !== true) return { ok: false, reason: 'no_sms_consent' }
+  if (!isTelnyxSmsEnabled()) return { ok: false, reason: 'sms_disabled' }
+  const to = toE164(opts.to)
+  if (!to) return { ok: false, reason: 'invalid_number' }
+  const sms = await sendSms({ to, text: opts.text })
+  return sms.ok ? { ok: true } : { ok: false, reason: `status_${sms.status}` }
+}
+
+/**
  * Start the Telnyx emergency bridge: dial the FIXXIT team from
  * TELNYX_FROM_NUMBER through TELNYX_CONNECTION_ID. When the team answers
  * and presses 1, the webhook dials the customer and bridges the two legs.

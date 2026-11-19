@@ -12,6 +12,7 @@ export type ChatEmergency = {
   phone: string
   note: string | null
   photo_triage: PhotoAnalysis | PhotoAnalysis[] | null
+  sms_consent: boolean
   first_name?: string
   last_name?: string
   call_status?: string | null
@@ -53,6 +54,7 @@ function rowToEmergency(row: Record<string, unknown>): ChatEmergency {
     phone: String(row.phone ?? ''),
     note: (row.note as string) ?? null,
     photo_triage: (row.photo_triage as ChatEmergency['photo_triage']) ?? null,
+    sms_consent: row.sms_consent === true,
   }
 }
 
@@ -61,6 +63,7 @@ export async function createEmergency(input: {
   emergency_type: EmergencyTypeId
   phone: string
   note: string
+  sms_consent?: boolean
 }): Promise<ChatEmergency> {
   const supabase = getChatSupabase()
   if (!supabase) throw new Error('Chat storage is not configured')
@@ -69,6 +72,7 @@ export async function createEmergency(input: {
     p_emergency_type: input.emergency_type,
     p_phone: input.phone,
     p_note: input.note || null,
+    p_sms_consent: input.sms_consent === true,
   })
   if (error || !data) throw error || new Error('Could not save the emergency request')
   return rowToEmergency(data as Record<string, unknown>)

@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
       emergency_type: checked.emergency_type,
       phone: checked.phone,
       note: checked.note,
+      sms_consent: body.sms_consent === true,
     })
 
     logChatMessage(lead.session_id, 'user', `Emergency: ${emergencyLabel(emergency.emergency_type)}`, {

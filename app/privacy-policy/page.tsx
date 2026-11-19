@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
     <div className="page-content">
       <div className="container">
         <h1>Privacy Policy</h1>
-        <p><em>Last Updated: November 18, 2026</em></p>
+        <p><em>Last Updated: November 19, 2026</em></p>
 
         <p>Fixxit Pros (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website fixxitpros.com or use our services.</p>
 
@@ -45,7 +45,9 @@ export default function PrivacyPolicyPage() {
         </ul>
 
         <h2>3. Text Messages (SMS)</h2>
-        <p>If you provide your phone number on our website, including in the chat form on fixxitpros.com, we may use it to call or text you about your service request. Message and data rates may apply. Message frequency varies. You can opt out of text messages at any time by replying STOP. Reply HELP for help. Consent to receive calls or texts is not a condition of using our services.</p>
+        <p>If you provide your phone number on our website, including in the chat form on fixxitpros.com, we may use it to call you about your service request. We only send text messages if you check the optional, unchecked-by-default box agreeing to receive texts from FIXXIT Pros about your service request. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, or HELP for help. Consent to receive texts is not a condition of purchase. See our <a href="/terms">Terms</a> for SMS terms.</p>
+        <p><strong>Your mobile information will not be sold or shared with third parties or affiliates for promotional or marketing purposes.</strong></p>
+        <p>We will not share your opt-in to an SMS campaign with any third party for purposes unrelated to providing you with the services of that campaign. We may share your Personal Data, including your SMS opt-in or consent status, with third parties that help us provide our messaging services, including but not limited to platform providers, phone companies, and any other vendors who assist us in the delivery of text messages.</p>
 
         <h2>4. Phone Calls and the AI Voice Assistant</h2>
         <p>When you call FIXXIT Pros at 480-795-5295, an AI voice assistant may answer the call. These calls may be recorded and transcribed so we can route your request, follow up, and keep a record of what was discussed. Recordings and transcripts may include your name, phone number, address or zip code, and details you share about your request or application. We use this information to connect you with our team and to follow up on your call.</p>
@@ -59,6 +61,7 @@ export default function PrivacyPolicyPage() {
           <li><strong>Business Transfers:</strong> In connection with a merger or acquisition</li>
         </ul>
         <p>We do not sell your personal information to third parties.</p>
+        <p>All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
 
         <h2>6. Data Retention</h2>
         <p>We retain your information for as long as necessary to provide our services and comply with legal obligations. You may request deletion of your data at any time.</p>

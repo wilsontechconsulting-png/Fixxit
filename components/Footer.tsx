@@ -36,6 +36,7 @@ export default function Footer() {
               <Link href="/questions">Contact Us</Link>
               <Link href="/join">Join Our Team</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/terms">Terms</Link>
               <Link href="/cookie-policy">Cookie Policy</Link>
             </nav>
           </div>
@@ -57,6 +58,7 @@ export default function Footer() {
           <p>© {year} Fixxit Pros. All rights reserved.</p>
           <div className="footer-bottom-links">
             <Link href="/privacy-policy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
             <Link href="/cookie-policy">Cookies</Link>
           </div>
         </div>

@@ -22,6 +22,7 @@ export type ChatLead = {
   confidence: string | null
   analysis: PhotoAnalysis | PhotoAnalysis[] | null
   photo_paths: string[]
+  sms_consent: boolean
 }
 
 export function digitsOnly(phone: string): string {
@@ -71,6 +72,7 @@ function rowToLead(row: Record<string, unknown>): ChatLead {
     confidence: (row.confidence as string) ?? null,
     analysis: (row.analysis as ChatLead['analysis']) ?? null,
     photo_paths: Array.isArray(paths) ? paths.map(String) : [],
+    sms_consent: row.sms_consent === true,
   }
 }
 
@@ -82,6 +84,7 @@ export async function createLead(input: {
   email: string
   user_agent?: string
   referer?: string
+  sms_consent?: boolean
 }): Promise<ChatLead> {
   const supabase = getChatSupabase()
   if (!supabase) throw new Error('Chat storage is not configured')
@@ -93,6 +96,7 @@ export async function createLead(input: {
     p_email: input.email,
     p_user_agent: input.user_agent || null,
     p_referer: input.referer || null,
+    p_sms_consent: input.sms_consent === true,
   })
   if (error || !data) throw error || new Error('Could not save contact details')
   return rowToLead(data as Record<string, unknown>)
