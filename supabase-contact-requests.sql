@@ -1,0 +1,6 @@
+-- Applied 2026-11-20 as migration contact_requests on project regeiengexiltiqdnewh.
+-- Table public.contact_requests (RLS on, no policies) stores /contact and quote form submissions,
+-- with optional phone and optional SMS consent (sms_consent, sms_consent_at, sms_consent_text).
+-- Writes go through SECURITY DEFINER RPC create_contact_request(p_source, p_first_name, p_last_name,
+-- p_phone, p_email, p_zip, p_service, p_message, p_sms_consent, p_sms_consent_text, p_user_agent, p_referer),
+-- executable by anon, authenticated, service_role. Consent requires a phone number.

@@ -33,7 +33,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Company</h4>
             <nav className="footer-links">
-              <Link href="/questions">Contact Us</Link>
+              <Link href="/contact">Contact Us</Link>
               <Link href="/join">Join Our Team</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
               <Link href="/terms">Terms</Link>

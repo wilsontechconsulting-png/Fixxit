@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
     <div className="page-content">
       <div className="container">
         <h1>Privacy Policy</h1>
-        <p><em>Last Updated: November 19, 2026</em></p>
+        <p><em>Last Updated: November 20, 2026</em></p>
 
         <p>Fixxit Pros (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website fixxitpros.com or use our services.</p>
 
@@ -45,8 +45,9 @@ export default function PrivacyPolicyPage() {
         </ul>
 
         <h2>3. Text Messages (SMS)</h2>
-        <p>If you provide your phone number on our website, including in the chat form on fixxitpros.com, we may use it to call you about your service request. We only send text messages if you check the optional, unchecked-by-default box agreeing to receive texts from FIXXIT Pros about your service request. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, or HELP for help. Consent to receive texts is not a condition of purchase. See our <a href="/terms">Terms</a> for SMS terms.</p>
-        <p><strong>Your mobile information will not be sold or shared with third parties or affiliates for promotional or marketing purposes.</strong></p>
+        <p>Giving us your phone number is optional on our <a href="/contact">Contact Us</a> and quote forms. If you provide your phone number on our website, including on the <a href="/contact">Contact Us</a> page, the quote form, or the chat on fixxitpros.com, we may use it to call you about your service request. We only send text messages if you check the optional, unchecked-by-default box agreeing to receive texts from FIXXIT Pros about your service request. We record the date and time you gave consent. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, or HELP for help. Consent to receive texts is not a condition of purchase. See our <a href="/terms">Terms</a> for SMS terms.</p>
+        <p><strong>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Your mobile information will not be sold, rented, or otherwise shared or transferred with third parties or affiliates for promotional or marketing purposes.</strong></p>
+        <p>Text messaging originator opt-in data and consent are excluded from all sharing described in this policy and will not be shared with any third parties.</p>
         <p>We will not share your opt-in to an SMS campaign with any third party for purposes unrelated to providing you with the services of that campaign. We may share your Personal Data, including your SMS opt-in or consent status, with third parties that help us provide our messaging services, including but not limited to platform providers, phone companies, and any other vendors who assist us in the delivery of text messages.</p>
 
         <h2>4. Phone Calls and the AI Voice Assistant</h2>

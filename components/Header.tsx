@@ -69,7 +69,7 @@ export default function Header() {
               </div>
             </div>
             <Link href="/#how-it-works">How It Works</Link>
-            <Link href="/questions">Contact</Link>
+            <Link href="/contact">Contact</Link>
             <Link href="/join">Join Our Team</Link>
             <Link href="/questions" className="nav-cta">Get a Free Quote</Link>
           </nav>
@@ -105,7 +105,7 @@ export default function Header() {
           </div>
         )}
         <Link href="/#how-it-works" onClick={closeMenu}>How It Works</Link>
-        <Link href="/questions" onClick={closeMenu}>Contact</Link>
+        <Link href="/contact" onClick={closeMenu}>Contact</Link>
         <Link href="/join" onClick={closeMenu}>Join Our Team</Link>
         <Link href="/questions" className="mobile-cta" onClick={closeMenu}>Get a Free Quote</Link>
       </nav>

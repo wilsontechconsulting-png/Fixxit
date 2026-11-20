@@ -260,3 +260,33 @@ export async function notifyCallLog(log: CallLog) {
     console.error('call log notify email failed')
   }
 }
+
+export async function notifyContactRequest(req: import('@/lib/contact-requests').ContactRequest) {
+  const to = process.env.NOTIFY_EMAIL?.trim()
+  const from = process.env.RESEND_FROM?.trim()
+  const apiKey = process.env.RESEND_API_KEY?.trim()
+  if (!to || !from || !apiKey) return
+
+  const name = `${req.first_name} ${req.last_name || ''}`.trim()
+  const label = req.source === 'quote' ? 'quote request' : 'contact request'
+  const subject = `New website ${label}: ${name}`
+  const lines = [
+    `A new ${label} was submitted on fixxitpros.com.`,
+    '',
+    `Name: ${name}`,
+    `Phone: ${req.phone || '—'}`,
+    `Email: ${req.email}`,
+    `Zip: ${req.zip || '—'}`,
+    `Service: ${req.service || '—'}`,
+    `Message: ${req.message || '—'}`,
+    `SMS consent: ${req.sms_consent ? 'Yes' : 'No'}`,
+    `Request ID: ${req.id}`,
+  ]
+
+  try {
+    const resend = new Resend(apiKey)
+    await resend.emails.send({ from, to: [to], subject, text: lines.join('\n') })
+  } catch (err) {
+    console.error('contact notify email failed')
+  }
+}
